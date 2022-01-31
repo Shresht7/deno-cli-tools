@@ -11,7 +11,6 @@ import write from '../../helpers/write.ts'
 //  =======
 
 type SpinnerProps = {
-    text: string,
     type: spinnerType
 }
 
@@ -21,25 +20,36 @@ class Spinner {
     private text: string
     /** Spinner type */
     private spinner: ISpinner
+
     /** Reference to the currently active timer */
     private timer: number | null = null
     /** The current frame */
     private frame = 0
 
-    constructor({ text, type = 'windows' }: SpinnerProps) {
+    constructor(text: string, { type }: SpinnerProps = { type: 'windows' }) {
         this.text = text || ""
         this.spinner = spinners[type]
     }
 
-    updateText(text: string) {
+    /** set the text */
+    setText(text: string) {
         this.text = text
     }
 
+    /** Set new spinner */
+    setSpinner(type: spinnerType) {
+        this.spinner = spinners[type]
+    }
+
+    /** Returns whether timer is running */
+    isRunning = () => this.timer != null
+
     /** Starts the spinner */
     start(text?: string) {
+        if (this.timer) { throw new Error("Spinner already active") }
 
         //  If text is passed, update the spinner text
-        if (text) { this.updateText(text) }
+        if (text) { this.setText(text) }
 
         //  Hide cursor
         write(cursor.hide)

@@ -3,11 +3,11 @@ export interface ISpinner {
     frames: string[]
 }
 
+export type spinnerType = keyof typeof spinners
+
 export const spinners = {
     windows: {
         interval: 80,
         frames: ["/", "-", "\\", "|"],
     }
 }
-
-export type spinnerType = keyof typeof spinners
