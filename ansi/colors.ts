@@ -63,6 +63,8 @@ export const cyan = ansiColor('cyan')
 /** Colors the string white */
 export const white = ansiColor('white')
 
+export type RGBColor = [number, number, number]
+
 /** Colors the string with the given rgb values */
-export const rgb = (str: string, [r, g, b]: [number, number, number]) => `${ESC}[38;2;${r};${g};${b}m${str}${RESET}`
-rgb.bg = (str: string, [r, g, b]: [number, number, number]) => `${ESC}[48;2;${r};${g};${b}m${str}${RESET}`
+export const rgb = (str: string, [r, g, b]: RGBColor) => `${ESC}[38;2;${r};${g};${b}m${str}${RESET}`
+rgb.bg = (str: string, [r, g, b]: RGBColor) => `${ESC}[48;2;${r};${g};${b}m${str}${RESET}`
