@@ -2,6 +2,9 @@
 import spinners from './spinners.ts'
 import clear from '../../ansi/clear.ts'
 
+//  Helpers
+import { write } from '../../helpers/index.ts'
+
 //  =======
 //  SPINNER
 //  =======
@@ -24,16 +27,16 @@ class Spinner {
     start(text: string) {
         this.text = text
         this.timer = setInterval(() => {
-            clear.entireLine
-            Deno.stdout.write(new TextEncoder().encode(spinners.windows.frames[this.frame] + " " + this.text))
+            write(clear.entireLine)
+            write(spinners.windows.frames[this.frame] + " " + this.text)
             this.frame = (this.frame + 1) % spinners.windows.frames.length
         }, spinners.windows.interval)
     }
 
     stop(text?: string) {
         if (this.timer) { clearInterval(this.timer) }
-        Deno.stdout.write(new TextEncoder().encode(clear.entireLine + '\n'))
-        if (text) { Deno.stdout.write(new TextEncoder().encode(text)) }
+        write(clear.entireLine + '\n')
+        if (text) { write(text) }
         this.timer = null
     }
 }
