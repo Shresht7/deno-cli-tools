@@ -1,6 +1,7 @@
 //  Library
 import spinners from './spinners.ts'
 import clear from '../../ansi/clear.ts'
+import cursor from '../../ansi/cursor.ts'
 
 //  Helpers
 import write from '../../helpers/write.ts'
@@ -36,11 +37,17 @@ class Spinner {
         //  If text is passed, update the spinner text
         if (text) { this.updateText(text) }
 
+        //  Hide cursor
+        write(cursor.hide)
+
         //  Start the timer and store it's reference
         this.timer = setInterval(() => {
+            const str = spinners.windows.frames[this.frame] + " " + this.text
+
             //  Re-render the spinner and text every interval
             write(clear.entireLine)
-            write(spinners.windows.frames[this.frame] + " " + this.text)
+            write(cursor.left(str.length))
+            write(str)
 
             //  Increment the frame counter
             this.frame = (this.frame + 1) % spinners.windows.frames.length
@@ -55,6 +62,9 @@ class Spinner {
         this.timer = null
 
         write(clear.entireLine + '\n')
+
+        //  Show cursor
+        write(cursor.show)
 
         //  If text is passed, write text in place of spinner
         if (text) { write(text) }
