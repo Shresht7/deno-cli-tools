@@ -43,4 +43,4 @@ export const hidden = (str: string) => wrap(str, style.hidden)
 /** Strikethrough a string */
 export const strikethrough = (str: string) => wrap(str, style.strikethrough)
 /** Add padding around text */
-export const pad = (str: string, n: number = 1) => ' '.repeat(n) + str + ' '.repeat(n)
+export const pad = (str: string, n = 1) => ' '.repeat(n) + str + ' '.repeat(n)
