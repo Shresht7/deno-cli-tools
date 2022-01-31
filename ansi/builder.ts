@@ -2,11 +2,7 @@
 //  ANSI BUILDER
 //  ============
 
-/**
- * ANSI template string builder
- * 
- * example: console.log(ansi`This ${compose(bold, red, italic)} is ${inverse} the ${pad('BEST!')} `)
- */
+/** ANSI template string builder */
 export const ansi = (templateStr: TemplateStringsArray, ...rest: (string | ((str: string) => string))[]) => {
     return templateStr.reduce((acc, curr, i) => {
 
