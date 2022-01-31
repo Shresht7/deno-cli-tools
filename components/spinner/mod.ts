@@ -1,7 +1,7 @@
 //  Library
-import spinners from './spinners.ts'
 import clear from '../../ansi/clear.ts'
 import cursor from '../../ansi/cursor.ts'
+import { spinners, spinnerType, ISpinner } from './spinners.ts'
 
 //  Helpers
 import write from '../../helpers/write.ts'
@@ -11,20 +11,24 @@ import write from '../../helpers/write.ts'
 //  =======
 
 type SpinnerProps = {
-    text: string
+    text: string,
+    type: spinnerType
 }
 
 class Spinner {
 
     /** Text to display next to the spinner */
     private text: string
+    /** Spinner type */
+    private spinner: ISpinner
     /** Reference to the currently active timer */
     private timer: number | null = null
     /** The current frame */
     private frame = 0
 
-    constructor({ text }: SpinnerProps) {
+    constructor({ text, type = 'windows' }: SpinnerProps) {
         this.text = text || ""
+        this.spinner = spinners[type]
     }
 
     updateText(text: string) {
@@ -42,7 +46,7 @@ class Spinner {
 
         //  Start the timer and store it's reference
         this.timer = setInterval(() => {
-            const str = spinners.windows.frames[this.frame] + " " + this.text
+            const str = this.spinner.frames[this.frame] + " " + this.text
 
             //  Re-render the spinner and text every interval
             write(clear.entireLine)
@@ -50,8 +54,8 @@ class Spinner {
             write(str)
 
             //  Increment the frame counter
-            this.frame = (this.frame + 1) % spinners.windows.frames.length
-        }, spinners.windows.interval)
+            this.frame = (this.frame + 1) % this.spinner.frames.length
+        }, this.spinner.interval)
 
     }
 
