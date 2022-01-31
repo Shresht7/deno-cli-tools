@@ -3,7 +3,7 @@ import spinners from './spinners.ts'
 import clear from '../../ansi/clear.ts'
 
 //  Helpers
-import { write } from '../../helpers/index.ts'
+import write from '../../helpers/write.ts'
 
 //  =======
 //  SPINNER
