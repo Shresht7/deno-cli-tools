@@ -15,30 +15,52 @@ type SpinnerProps = {
 
 class Spinner {
 
+    /** Text to display next to the spinner */
     private text: string
+    /** Reference to the currently active timer */
     private timer: number | null = null
-    private isRunning = false
+    /** The current frame */
     private frame = 0
 
     constructor({ text }: SpinnerProps) {
         this.text = text || ""
     }
 
-    start(text: string) {
+    updateText(text: string) {
         this.text = text
-        this.timer = setInterval(() => {
-            write(clear.entireLine)
-            write(spinners.windows.frames[this.frame] + " " + this.text)
-            this.frame = (this.frame + 1) % spinners.windows.frames.length
-        }, spinners.windows.interval)
     }
 
-    stop(text?: string) {
-        if (this.timer) { clearInterval(this.timer) }
-        write(clear.entireLine + '\n')
-        if (text) { write(text) }
-        this.timer = null
+    /** Starts the spinner */
+    start(text?: string) {
+
+        //  If text is passed, update the spinner text
+        if (text) { this.updateText(text) }
+
+        //  Start the timer and store it's reference
+        this.timer = setInterval(() => {
+            //  Re-render the spinner and text every interval
+            write(clear.entireLine)
+            write(spinners.windows.frames[this.frame] + " " + this.text)
+
+            //  Increment the frame counter
+            this.frame = (this.frame + 1) % spinners.windows.frames.length
+        }, spinners.windows.interval)
+
     }
+
+    /** Stop the spinner */
+    stop(text?: string) {
+        //  Stop the timer
+        if (this.timer) { clearInterval(this.timer) }
+        this.timer = null
+
+        write(clear.entireLine + '\n')
+
+        //  If text is passed, write text in place of spinner
+        if (text) { write(text) }
+
+    }
+
 }
 
 //  ------------------
