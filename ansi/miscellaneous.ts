@@ -1,5 +1,5 @@
 //  Library
-import { OSC, BEL, ESC } from './codes'
+import { OSC, BEL, ESC } from './codes.ts'
 
 //  =============
 //  MISCELLANEOUS

@@ -1,5 +1,5 @@
 //  Library
-import { ESC } from './codes'
+import { ESC } from './codes.ts'
 
 //  ===================
 //  CURSOR MANIPULATION

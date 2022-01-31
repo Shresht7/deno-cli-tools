@@ -1,5 +1,5 @@
 //  Library
-import { wrap } from './codes'
+import { wrap } from './codes.ts'
 
 //  ==========
 //  ANSI STYLE

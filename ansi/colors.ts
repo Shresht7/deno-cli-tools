@@ -1,5 +1,5 @@
 //  Library
-import { wrap, ESC, RESET } from './codes'
+import { wrap, ESC, RESET } from './codes.ts'
 
 //  ==========
 //  ANSI COLOR
