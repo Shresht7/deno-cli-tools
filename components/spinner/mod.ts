@@ -34,6 +34,7 @@ class Spinner {
 
     /** set the text */
     setText(text: string) {
+        write(clear.entireLine)
         this.text = text
     }
 
@@ -65,9 +66,13 @@ class Spinner {
         this.timer = setInterval(() => {
             const str = this.spinner.frames[this.frame] + " " + this.text
 
+            //  Only clear the line if necessary
+            if (!new RegExp(this.text + "$").test(str)) {
+                write(clear.entireLine)
+            }
+
             //  Re-render the spinner and text every interval
-            write(clear.entireLine)
-            write(cursor.left(999))
+            write(cursor.left(999))     //  Move cursor all the way to the left
             write(str)
 
             //  Increment the frame counter
