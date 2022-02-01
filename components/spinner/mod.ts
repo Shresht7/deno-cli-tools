@@ -13,7 +13,8 @@ import write from '../../helpers/write.ts'
 type SpinnerProps = {
     text?: string,
     type?: spinnerType,
-    formatter?: (((spinner: string) => string) | null)
+    formatter?: (((spinner: string) => string) | null),
+    writer?: Deno.Writer
 }
 
 class Spinner {
@@ -25,21 +26,30 @@ class Spinner {
     /** Spinner formatter */
     private formatter: (((text: string) => string) | undefined | null) = null
 
+    /** Output */
+    private writer: Deno.Writer = Deno.stdout
+
     /** Reference to the currently active timer */
     private timer: number | null = null
     /** The current frame */
     private frame = 0
 
-    constructor({ text = '', type = 'windows', formatter }: SpinnerProps = { text: '', type: 'windows' }) {
+    constructor({ text = '', type = 'windows', formatter, writer }: SpinnerProps = { text: '', type: 'windows' }) {
         this.text = text
         this.spinner = spinners[type]
         this.formatter = formatter
+        if (writer) { this.writer = writer }
+    }
+
+    /** Writes text to this.writer */
+    private write(text: string) {
+        write(text, this.writer)
     }
 
     /** set the text */
     setText(text: (string | ((text: string) => string))) {
         text = typeof text === 'string' ? text : text(this.text)
-        write(clear.entireLine)
+        this.write(clear.entireLine)
         this.text = text
     }
 
@@ -66,7 +76,7 @@ class Spinner {
         if (text) { this.setText(text) }
 
         //  Hide cursor
-        write(cursor.hide)
+        this.write(cursor.hide)
 
         //  Start the timer and store it's reference
         this.timer = setInterval(() => {
@@ -77,12 +87,12 @@ class Spinner {
 
             //  Only clear the line if necessary
             if (!new RegExp(this.text + "$").test(str)) {
-                write(clear.entireLine)
+                this.write(clear.entireLine)
             }
 
             //  Re-render the spinner and text every interval
-            write(cursor.left(999))     //  Move cursor all the way to the left
-            write(str)
+            this.write(cursor.left(999))     //  Move cursor all the way to the left
+            this.write(str)
 
             //  Increment the frame counter
             this.frame = (this.frame + 1) % this.spinner.frames.length
@@ -96,13 +106,13 @@ class Spinner {
         if (this.timer) { clearInterval(this.timer) }
         this.timer = null
 
-        write(clear.entireLine + '\n')
+        this.write(clear.entireLine + '\n')
 
         //  Show cursor
-        write(cursor.show)
+        this.write(cursor.show)
 
         //  If text is passed, write text in place of spinner
-        if (text) { write(text) }
+        if (text) { this.write(text) }
 
     }
 
