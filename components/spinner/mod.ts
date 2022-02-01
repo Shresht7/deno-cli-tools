@@ -12,7 +12,8 @@ import write from '../../helpers/write.ts'
 
 type SpinnerProps = {
     text?: string,
-    type?: spinnerType
+    type?: spinnerType,
+    formatter?: (((spinner: string) => string) | null)
 }
 
 class Spinner {
@@ -21,32 +22,37 @@ class Spinner {
     private text: string
     /** Spinner type */
     private spinner: ISpinner
+    /** Spinner formatter */
+    private formatter: (((text: string) => string) | undefined | null) = null
 
     /** Reference to the currently active timer */
     private timer: number | null = null
     /** The current frame */
     private frame = 0
 
-    constructor({ text = '', type = 'windows' }: SpinnerProps = { text: '', type: 'windows' }) {
+    constructor({ text = '', type = 'windows', formatter }: SpinnerProps = { text: '', type: 'windows' }) {
         this.text = text
         this.spinner = spinners[type]
+        this.formatter = formatter
     }
 
     /** set the text */
-    setText(text: string) {
+    setText(text: (string | ((text: string) => string))) {
+        text = typeof text === 'string' ? text : text(this.text)
         write(clear.entireLine)
         this.text = text
     }
 
     /** Set new spinner */
-    setSpinner(type: spinnerType) {
+    setSpinner(type: spinnerType, formatter?: (spinner: string) => string) {
         this.spinner = spinners[type]
+        this.formatter = formatter
     }
 
     /** Update text and spinner */
-    update(text: string, type: spinnerType) {
+    update(text: (string | ((text: string) => string)), type: spinnerType, formatter?: (text: string) => string) {
         this.setText(text)
-        this.setSpinner(type)
+        this.setSpinner(type, formatter)
     }
 
     /** Returns whether timer is running */
@@ -64,7 +70,10 @@ class Spinner {
 
         //  Start the timer and store it's reference
         this.timer = setInterval(() => {
-            const str = this.spinner.frames[this.frame] + " " + this.text
+            //  Format display string
+            let frame = this.spinner.frames[this.frame]
+            frame = this.formatter ? this.formatter(frame) : frame
+            const str = frame + " " + this.text
 
             //  Only clear the line if necessary
             if (!new RegExp(this.text + "$").test(str)) {
