@@ -1,6 +1,6 @@
 import Spinner from '../../../components/spinner/mod.ts'
 
-const spinner = new Spinner("Countdown: 10")
+const spinner = new Spinner({ text: "Countdown: 10" })
 
 spinner.start()
 
