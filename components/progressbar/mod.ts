@@ -11,18 +11,23 @@ import write from '../../helpers/write.ts'
 
 type ProgressBarProps = {
     character?: string,
+    caps?: [string, string]
     writer?: Deno.Writer
 }
+
+//  ? extend EventTarget
 
 class ProgressBar {
 
     /** Character to represent progress */
     private character = '#'
 
+    private caps: [string, string] = ['{{', '}}']
+
     /** Current level of progress */
     private progress = 0
     /** Total progress level */
-    private total = 100
+    private total = 10
 
     /** Progress-bar is running */
     private isRunning = false
@@ -30,8 +35,9 @@ class ProgressBar {
     /** Output */
     private writer: Deno.Writer = Deno.stdout
 
-    constructor({ character, writer }: ProgressBarProps = {}) {
+    constructor({ character, writer, caps }: ProgressBarProps = {}) {
         this.character = character || this.character
+        this.caps = caps || this.caps
         this.writer = writer || this.writer
     }
 
@@ -47,15 +53,24 @@ class ProgressBar {
         //  Hide cursor
         this.write(cursor.hide)
 
+        //  Initialize array
+        this.write(this.caps[0] + " ".repeat(this.total) + this.caps[1])
+        this.write(cursor.left(this.total + this.caps[1].length - 1))
+
     }
 
     /** Update progress */
     updateProgress(n: number) {
+        if (n > this.total) {
+            this.stop()
+            return true
+        }
+
         if (n > this.progress) {
             this.write(this.character.repeat(n - this.progress))
         } else {
             this.write(cursor.left(this.character.repeat(this.progress).length))
-            this.write(clear.entireLine)
+            // this.write(clear.entireLine)
             this.write(this.character.repeat(n))
         }
         this.progress = n
