@@ -67,7 +67,7 @@ class Spinner {
 
             //  Re-render the spinner and text every interval
             write(clear.entireLine)
-            write(cursor.left(str.length))
+            write(cursor.left(999))
             write(str)
 
             //  Increment the frame counter
