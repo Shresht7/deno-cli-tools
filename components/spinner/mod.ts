@@ -13,6 +13,7 @@ import write from '../../helpers/write.ts'
 type SpinnerProps = {
     text?: string,
     type?: spinnerType,
+    customSpinner?: ISpinner,
     formatter?: (((spinner: string) => string) | null),
     writer?: Deno.Writer
 }
@@ -34,9 +35,9 @@ class Spinner {
     /** The current frame */
     private frame = 0
 
-    constructor({ text = '', type = 'windows', formatter, writer }: SpinnerProps = { text: '', type: 'windows' }) {
+    constructor({ text = '', type = 'windows', customSpinner, formatter, writer }: SpinnerProps = { text: '', type: 'windows' }) {
         this.text = text
-        this.spinner = spinners[type]
+        this.spinner = customSpinner ? customSpinner : spinners[type]
         this.formatter = formatter
         if (writer) { this.writer = writer }
     }
