@@ -94,7 +94,7 @@ class ProgressBar {
     }
 
     /** Update progress */
-    updateProgress(n: number, text?: string) {
+    updateProgress(n: number, text: string = Math.floor(this.percentage) + "%") {
 
         //  Stop when progress completes
         if (n > this.total) {
@@ -151,6 +151,10 @@ class ProgressBar {
         //  Push to this.writer
         this.flush()
 
+    }
+
+    get percentage() {
+        return (this.value / this.total) * 100
     }
 }
 
