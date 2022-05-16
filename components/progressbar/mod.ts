@@ -14,6 +14,7 @@ import write from '../../helpers/write.ts'
 type ProgressBarProps = {
     progressCharacter?: string,
     remainingCharacter?: string,
+    textSeparator?: string,
     caps?: [string, string],
     total?: number,
     color?: ANSIColor,
@@ -48,13 +49,14 @@ class ProgressBar {
     /** Deno Writer */
     private writer: Deno.Writer = Deno.stdout
 
-    constructor({ progressCharacter, remainingCharacter, writer, caps, total, color }: ProgressBarProps = {}) {
-        this.progressCharacter = progressCharacter || this.progressCharacter
-        this.remainingCharacter = remainingCharacter || this.remainingCharacter
-        this.caps = caps || this.caps
-        this.total = total || this.total
-        this.writer = writer || this.writer
-        this.color = color
+    constructor(properties: ProgressBarProps = {}) {
+        this.progressCharacter = properties.progressCharacter || this.progressCharacter
+        this.remainingCharacter = properties.remainingCharacter || this.remainingCharacter
+        this.textSeparator = properties.textSeparator || this.textSeparator
+        this.caps = properties.caps || this.caps
+        this.total = properties.total || this.total
+        this.writer = properties.writer || this.writer
+        this.color = properties.color
     }
 
     /** Appends the text to the tracked string */
