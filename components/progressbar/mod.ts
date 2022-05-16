@@ -1,6 +1,7 @@
 //  Library
 import cursor from '../../ansi/cursor.ts'
 import clear from '../../ansi/clear.ts'
+import { ANSIColor, ansiColor } from '../../ansi/colors.ts'
 
 //  Helpers
 import write from '../../helpers/write.ts'
@@ -15,6 +16,7 @@ type ProgressBarProps = {
     remainingCharacter?: string,
     caps?: [string, string],
     total?: number,
+    color?: ANSIColor,
     writer?: Deno.Writer,
 }
 
@@ -26,6 +28,8 @@ class ProgressBar {
     private remainingCharacter = '░'
     /** Separates progress-bar and text */
     private textSeparator = " - "
+
+    private color: ANSIColor | undefined
 
     /** ProgressBar end caps */
     private caps: [string, string] = ['{{ ', ' }}']
@@ -44,12 +48,13 @@ class ProgressBar {
     /** Deno Writer */
     private writer: Deno.Writer = Deno.stdout
 
-    constructor({ progressCharacter, remainingCharacter, writer, caps, total }: ProgressBarProps = {}) {
+    constructor({ progressCharacter, remainingCharacter, writer, caps, total, color }: ProgressBarProps = {}) {
         this.progressCharacter = progressCharacter || this.progressCharacter
         this.remainingCharacter = remainingCharacter || this.remainingCharacter
         this.caps = caps || this.caps
         this.total = total || this.total
         this.writer = writer || this.writer
+        this.color = color
     }
 
     /** Appends the text to the tracked string */
@@ -99,13 +104,17 @@ class ProgressBar {
         this.write(cursor.toColumn(this.caps[0].length + n))
 
         //  Update progress-bar length
+        let pg = ""
         if (n > this.value) {
-            this.write(this.progressCharacter.repeat(n - this.value))
+            pg += (this.progressCharacter.repeat(n - this.value))
         } else {
-            this.write(cursor.left(this.progressCharacter.repeat(this.value).length))
-            // this.write(clear.entireLine)
-            this.write(this.progressCharacter.repeat(n))
+            pg += (cursor.left(this.progressCharacter.repeat(this.value).length))
+            pg += (this.progressCharacter.repeat(n))
         }
+        if (this.color) {
+            pg = ansiColor(this.color)(pg)
+        }
+        this.write(pg)
 
         //  Record current progress
         this.value = n
