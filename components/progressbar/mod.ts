@@ -97,7 +97,7 @@ class ProgressBar {
         //  Show cursor
         this.write(cursor.show)
         //  If text is passed, write text in place of spinner
-        if (text) { this.write(text) }
+        if (text) { this.write(text + "\n") }
     }
 }
 
