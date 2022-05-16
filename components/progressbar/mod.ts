@@ -33,7 +33,7 @@ class ProgressBar {
     private color: ANSIColor | undefined
 
     /** ProgressBar end caps */
-    private caps: [string, string] = ['{{ ', ' }}']
+    private caps: [string, string] = ['|', '|']
 
     /** Current level of progress */
     public value = 0
