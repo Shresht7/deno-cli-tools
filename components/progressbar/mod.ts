@@ -11,7 +11,8 @@ import write from '../../helpers/write.ts'
 
 /** ProgressBar Constructor Properties */
 type ProgressBarProps = {
-    character?: string,
+    progressCharacter?: string,
+    remainingCharacter?: string,
     caps?: [string, string],
     writer?: Deno.Writer,
     total?: number,
@@ -20,7 +21,10 @@ type ProgressBarProps = {
 class ProgressBar {
 
     /** Character to represent progress */
-    private character = '#'
+    private progressCharacter = '#'
+
+    /** Character to represent remaining progress */
+    private remainingCharacter = ' '
 
     /** ProgressBar end caps */
     private caps: [string, string] = ['{{', '}}']
@@ -36,8 +40,9 @@ class ProgressBar {
     /** Output */
     private writer: Deno.Writer = Deno.stdout
 
-    constructor({ character, writer, caps, total }: ProgressBarProps = {}) {
-        this.character = character || this.character
+    constructor({ progressCharacter, remainingCharacter, writer, caps, total }: ProgressBarProps = {}) {
+        this.progressCharacter = progressCharacter || this.progressCharacter
+        this.remainingCharacter = remainingCharacter || this.remainingCharacter
         this.caps = caps || this.caps
         this.total = total || this.total
         this.writer = writer || this.writer
@@ -53,13 +58,13 @@ class ProgressBar {
         if (this.isRunning) { throw new Error("ProgressBar already active") }
 
         //  Hide cursor
-        this.write(cursor.hide)
+        write(cursor.hide)
 
         //  Write progress-bar
-        this.write(this.caps[0] + " ".repeat(this.total) + this.caps[1])
+        write(this.caps[0] + this.remainingCharacter.repeat(this.total) + this.caps[1])
 
         //  Move cursor back for next update
-        this.write(cursor.left(this.total + this.caps[1].length - 1))
+        write(cursor.left(this.total + this.caps[1].length - 1))
     }
 
     /** Update progress */
@@ -73,11 +78,11 @@ class ProgressBar {
 
         //  Update progress-bar length
         if (n > this.progress) {
-            this.write(this.character.repeat(n - this.progress))
+            this.write(this.progressCharacter.repeat(n - this.progress))
         } else {
-            this.write(cursor.left(this.character.repeat(this.progress).length))
+            this.write(cursor.left(this.progressCharacter.repeat(this.progress).length))
             // this.write(clear.entireLine)
-            this.write(this.character.repeat(n))
+            this.write(this.progressCharacter.repeat(n))
         }
 
         //  Record current progress
@@ -100,7 +105,10 @@ class ProgressBar {
 export default ProgressBar
 //  ----------------------
 
-const progress = new ProgressBar()
+const progress = new ProgressBar({
+    progressCharacter: "x",
+    remainingCharacter: "_"
+})
 
 progress.start()
 
