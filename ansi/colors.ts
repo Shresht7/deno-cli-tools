@@ -16,7 +16,7 @@ export type ANSIColor =
     | 'white'
     | 'default'
 
-const color: Record<ANSIColor, [number, number]> = {
+export const color: Record<ANSIColor, [number, number]> = {
     black: [30, 39],
     red: [31, 39],
     green: [32, 39],
