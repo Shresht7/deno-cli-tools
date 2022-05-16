@@ -2,10 +2,13 @@ import ProgressBar from '../../../components/progressbar/mod.ts'
 
 const progress = new ProgressBar()
 
-progress.start()
+progress.start("Counting")
 
 let count = 0
-const ref = setInterval(() => {
-    const done = progress.updateProgress(count++)
-    if (done) { clearInterval(ref) }
-}, 1000)
+const interval = setInterval(() => {
+    progress.updateProgress(count++, `Counting ${count}`)
+    if (count > progress.total) {
+        clearInterval(interval)
+        progress.stop('Done')
+    }
+}, 500)

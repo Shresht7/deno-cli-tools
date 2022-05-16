@@ -14,8 +14,8 @@ type ProgressBarProps = {
     progressCharacter?: string,
     remainingCharacter?: string,
     caps?: [string, string],
-    writer?: Deno.Writer,
     total?: number,
+    writer?: Deno.Writer,
 }
 
 class ProgressBar {
@@ -28,21 +28,21 @@ class ProgressBar {
     private textSeparator = " - "
 
     /** ProgressBar end caps */
-    private caps: [string, string] = ['{{', '}}']
+    private caps: [string, string] = ['{{ ', ' }}']
 
     /** Current level of progress */
-    private progress = 0
+    public value = 0
     /** Total progress level */
-    private total = 10
+    public total = 20
 
     /** Progress-bar is running */
     private isRunning = false
 
-    /** Output */
-    private writer: Deno.Writer = Deno.stdout
-
     /** String to write to the console */
     private str = ""
+
+    /** Deno Writer */
+    private writer: Deno.Writer = Deno.stdout
 
     constructor({ progressCharacter, remainingCharacter, writer, caps, total }: ProgressBarProps = {}) {
         this.progressCharacter = progressCharacter || this.progressCharacter
@@ -65,6 +65,8 @@ class ProgressBar {
 
     /** Start the progress-bar */
     start(text?: string) {
+
+        //  Throw error if the progress-bar is already active
         if (this.isRunning) { throw new Error("ProgressBar already active") }
 
         //  Hide cursor
@@ -89,7 +91,7 @@ class ProgressBar {
 
         //  Stop when progress completes
         if (n > this.total) {
-            this.stop()
+            this.stop(text)
             return true
         }
 
@@ -97,17 +99,18 @@ class ProgressBar {
         this.write(cursor.toColumn(this.caps[0].length + n))
 
         //  Update progress-bar length
-        if (n > this.progress) {
-            this.write(this.progressCharacter.repeat(n - this.progress))
+        if (n > this.value) {
+            this.write(this.progressCharacter.repeat(n - this.value))
         } else {
-            this.write(cursor.left(this.progressCharacter.repeat(this.progress).length))
+            this.write(cursor.left(this.progressCharacter.repeat(this.value).length))
             // this.write(clear.entireLine)
             this.write(this.progressCharacter.repeat(n))
         }
 
         //  Record current progress
-        this.progress = n
+        this.value = n
 
+        //  Write progress text
         if (text) {
             this.write(cursor.toColumn(this.caps[0].length + this.total + this.caps[1].length + 1))
             this.write(this.textSeparator)
@@ -120,14 +123,21 @@ class ProgressBar {
     }
 
     /** Stop the spinner */
-    stop(text?: string) {
-        this.write(clear.entireLine)
-        this.write(cursor.toColumn(0))
+    stop(text?: string, clearLine = true) {
+
+        if (clearLine) {
+            //  Clear the entire line
+            this.write(clear.entireLine)
+            this.write(cursor.toColumn(0))
+        }
+
         //  Show cursor
         this.write(cursor.show)
+
         //  If text is passed, write text in place of spinner
         if (text) { this.write(text + "\n") }
 
+        //  Push to this.writer
         this.flush()
 
     }
@@ -136,16 +146,3 @@ class ProgressBar {
 //  ----------------------
 export default ProgressBar
 //  ----------------------
-
-const progress = new ProgressBar({ total: 50 })
-
-progress.start("Counting")
-
-let count = 0
-const interval = setInterval(() => {
-    progress.updateProgress(count++, `Counting ${count}`)
-    if (count > 50) {
-        clearInterval(interval)
-        progress.stop('Done')
-    }
-}, 500)
