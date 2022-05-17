@@ -1,7 +1,7 @@
 //  Library
 import clear from '../../ansi/clear.ts'
 import cursor from '../../ansi/cursor.ts'
-import { spinners, spinnerType, ISpinner } from './spinners.ts'
+import { spinners, SpinnerType, SpinnerInterface } from './spinners.ts'
 
 //  Helpers
 import write from '../../helpers/write.ts'
@@ -12,9 +12,9 @@ import write from '../../helpers/write.ts'
 
 type SpinnerProps = {
     text?: string,
-    type?: spinnerType,
-    customSpinner?: ISpinner,
-    formatter?: (((spinner: string) => string) | null),
+    type?: SpinnerType,
+    customSpinner?: SpinnerInterface,
+    formatter?: ((spinner: string) => string),
     writer?: Deno.Writer
 }
 
@@ -23,9 +23,9 @@ class Spinner {
     /** Text to display next to the spinner */
     private text: string
     /** Spinner type */
-    private spinner: ISpinner
+    private spinner: SpinnerInterface
     /** Spinner formatter */
-    private formatter: (((text: string) => string) | undefined | null) = null
+    private formatter: (((text: string) => string) | undefined)
 
     /** Output */
     private writer: Deno.Writer = Deno.stdout
@@ -35,7 +35,7 @@ class Spinner {
     /** The current frame */
     private frame = 0
 
-    constructor({ text = '', type = 'windows', customSpinner, formatter, writer }: SpinnerProps = { text: '', type: 'windows' }) {
+    constructor({ text = '', type = 'windows', customSpinner, formatter, writer }: SpinnerProps = {}) {
         this.text = text
         this.spinner = customSpinner ? customSpinner : spinners[type]
         this.formatter = formatter
@@ -55,13 +55,13 @@ class Spinner {
     }
 
     /** Set new spinner */
-    setSpinner(type: spinnerType, formatter?: (spinner: string) => string) {
+    setSpinner(type: SpinnerType, formatter?: (spinner: string) => string) {
         this.spinner = spinners[type]
         this.formatter = formatter
     }
 
     /** Update text and spinner */
-    update(text: (string | ((text: string) => string)), type: spinnerType, formatter?: (text: string) => string) {
+    update(text: (string | ((text: string) => string)), type: SpinnerType, formatter?: (text: string) => string) {
         this.setText(text)
         this.setSpinner(type, formatter)
     }

@@ -1,9 +1,9 @@
-export interface ISpinner {
+export interface SpinnerInterface {
     interval: number
     frames: string[]
 }
 
-export type spinnerType = keyof typeof spinners
+export type SpinnerType = keyof typeof spinners
 
 export const spinners = {
     windows: {
