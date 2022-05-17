@@ -7,9 +7,9 @@ import { ESC } from './codes.ts'
 
 /** ANSI Cursor Manipulation */
 const cursor = {
-    /** Moves the cursor back to home position (0, 0) */
+    /** Moves the cursor to home position (0, 0) */
     toHome: `${ESC}[H`,
-    /** Moves the cursor back to given row and column */
+    /** Moves the cursor to given row and column */
     toPos: (row = 0, column = 0) => `${ESC}[${row};${column}H`,
     /** Moves the cursor up by n number of lines */
     up: (n = 1) => `${ESC}[${n}A`,
