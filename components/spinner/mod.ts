@@ -1,8 +1,10 @@
 //  Library
 import Component from '../mod.ts'
+import { spinners, SpinnerType, SpinnerInterface } from './spinners.ts'
+
+//  Helper Functions
 import clear from '../../ansi/clear.ts'
 import cursor from '../../ansi/cursor.ts'
-import { spinners, SpinnerType, SpinnerInterface } from './spinners.ts'
 
 //  Type Definitions
 import { UpdateStringCallback } from '../types.ts'
@@ -14,8 +16,7 @@ import { UpdateStringCallback } from '../types.ts'
 interface SpinnerProps {
     text?: string,
     prefixText?: string,
-    type?: SpinnerType,
-    customSpinner?: SpinnerInterface,
+    spinner?: SpinnerType | SpinnerInterface,
     formatter?: UpdateStringCallback,
     writer?: Deno.Writer
 }
@@ -29,9 +30,9 @@ class Spinner extends Component {
     private prefixText: string
 
     /** Spinner type */
-    private spinner: SpinnerInterface
+    private spinner: SpinnerInterface = spinners['windows']
 
-    /** Spinner formatter */
+    /** Callback function to modify the spinner frames */
     private formatter: UpdateStringCallback | undefined
 
     /** Reference to the currently active timer */
@@ -43,74 +44,69 @@ class Spinner extends Component {
     constructor({
         text = '',
         prefixText = '',
-        type = 'windows',
-        customSpinner = { interval: 80, frames: [] },
+        spinner = 'windows',
         formatter,
         writer
     }: SpinnerProps = {}) {
+
         super({ writer })
 
         this.text = text
         this.prefixText = prefixText
 
-        this.spinner = type === 'custom'
-            ? customSpinner
-            : spinners[type]
+        this.setSpinner(spinner, formatter)
 
-        this.formatter = formatter
     }
 
     /** Set the text */
     setText(text: string | UpdateStringCallback) {
-        text = typeof text === 'string' ? text : text(this.text)
-        this.text = text
+        this.text = typeof text === 'string' ? text : text(this.text)
+        return this
     }
 
     /** Set the prefixText */
     setPrefixText(text: string | UpdateStringCallback) {
-        text = typeof text === 'string' ? text : text(this.prefixText)
-        this.prefixText = text
+        this.text = typeof text === 'string' ? text : text(this.prefixText)
+        return this
     }
 
     /** Set new spinner */
-    setSpinner(type: SpinnerType, formatter?: UpdateStringCallback) {
-        this.spinner = spinners[type]
+    setSpinner(spinner: SpinnerType | SpinnerInterface, formatter: UpdateStringCallback | undefined = this.formatter) {
+        this.spinner = typeof spinner === 'string'
+            ? spinners[spinner]
+            : spinner
         this.formatter = formatter
-    }
-
-    /** Update text and spinner */
-    update(text: (string | ((text: string) => string)), type: SpinnerType, formatter?: (text: string) => string) {
-        this.setText(text)
-        this.setSpinner(type, formatter)
+        return this
     }
 
     /** Returns whether timer is running */
     isRunning = () => this.timer != null
 
     /** Starts the spinner */
-    start({ text, prefixText }: Pick<SpinnerProps, 'text' | 'prefixText'> = {}) {
+    start({ text, prefixText, spinner, formatter }: Omit<SpinnerProps, 'writer'> = {}) {
 
-        if (this.timer) { throw new Error("Spinner already active") }
+        if (this.isRunning()) { throw new Error("Spinner already active") }
 
         //  If text is passed, update the spinner text
         if (text) { this.setText(text) }
         if (prefixText) { this.setPrefixText(prefixText) }
+        if (spinner) { this.setSpinner(spinner, formatter) }
 
         //  Hide cursor
         this.write(cursor.hide)
 
         //  Start the timer and store it's reference
         this.timer = setInterval(() => {
+            //  Clear everything on this line
+            this.write(clear.entireLine)
+
             //  Format display string
             let frame = this.spinner.frames[this.frame]
             frame = this.formatter ? this.formatter(frame) : frame
             const str = this.prefixText + " " + frame + " " + this.text
 
-
-            this.write(clear.lineFromCursor)
-
             //  Re-render the spinner and text every interval
-            this.write(cursor.left(999))     //  Move cursor all the way to the left
+            this.write(cursor.toColumn(0))     //  Move cursor all the way to the left
             this.write(str)
             this.render()
 
@@ -118,6 +114,7 @@ class Spinner extends Component {
             this.frame = (this.frame + 1) % this.spinner.frames.length
         }, this.spinner.interval)
 
+        //  Render the initial state
         this.render()
 
     }
@@ -129,7 +126,9 @@ class Spinner extends Component {
         if (this.timer) { clearInterval(this.timer) }
         this.timer = null
 
-        this.write(clear.entireLine + '\n')
+        //  Clear the entire line
+        this.write(clear.entireLine)
+        this.write(cursor.toColumn(0))
 
         //  Show cursor
         this.write(cursor.show)
@@ -137,6 +136,8 @@ class Spinner extends Component {
         //  If text is passed, write text in place of spinner
         if (text) { this.write(text) }
 
+        //  Rerender
+        this.render()
     }
 
 }
