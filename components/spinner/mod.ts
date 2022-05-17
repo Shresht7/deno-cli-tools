@@ -72,7 +72,7 @@ class Spinner extends Component {
 
     /** Set the text preceding the spinner */
     setPrefixText(text: string | UpdateStringCallback) {
-        this.text = typeof text === 'string' ? text : text(this.prefixText)
+        this.prefixText = typeof text === 'string' ? text : text(this.prefixText)
         return this
     }
 

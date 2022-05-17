@@ -7,10 +7,12 @@ const spinnerTypes = Object.keys(spinners)
 const randomSpinner = () => spinnerTypes[Math.floor(Math.random() * spinnerTypes.length)] as keyof typeof spinners
 
 const first = randomSpinner()
-const spinner = new Spinner({ text: first, type: first })
+const spinner = new Spinner({ prefixText: first, spinner: first })
+
 spinner.start()
 
 setInterval(() => {
     const selection = randomSpinner()
-    spinner.update(selection, selection)
+    spinner.setPrefixText(selection)
+    spinner.setSpinner(selection)
 }, 2_000)
