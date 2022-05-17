@@ -2,7 +2,7 @@
 //  WRITER
 //  ======
 
-const writer = (encoder = new TextEncoder()) => {
+export const writer = (encoder = new TextEncoder()) => {
     return (text: string, writer: Deno.Writer = Deno.stdout) => writer.write(encoder.encode(text))
 }
 
