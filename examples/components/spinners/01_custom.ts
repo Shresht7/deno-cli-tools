@@ -2,7 +2,7 @@ import { inverse } from '../../../ansi/styles.ts'
 import Spinner from '../../../components/spinner/mod.ts'
 
 const spinner = new Spinner({
-    text: "Waiting",
+    prefixText: "Waiting",
     type: 'bouncingBall',
     formatter: (spinner) => inverse(spinner)
 })

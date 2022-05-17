@@ -5,7 +5,7 @@ const spinner = new Spinner({ text: "Countdown: 10" })
 spinner.start()
 
 let counter = 10
-const ref = setInterval(() => spinner.setText(`Countdown ${counter--}`), 1_000)
+const ref = setInterval(() => spinner.setText(`Countdown: ${counter--}`), 1_000)
 
 setTimeout(() => {
     spinner.stop("🚀 Liftoff!")
