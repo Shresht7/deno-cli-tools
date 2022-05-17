@@ -5,6 +5,7 @@ export interface SpinnerInterface {
 
 export type SpinnerType = keyof typeof spinners
 
+//  https://github.com/sindresorhus/cli-spinners
 export const spinners = {
     windows: {
         interval: 80,
