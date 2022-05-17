@@ -16,6 +16,7 @@ import { UpdateStringCallback } from '../types.ts'
 interface SpinnerProps {
     text?: string,
     prefixText?: string,
+    separator?: string,
     spinner?: SpinnerType | SpinnerInterface,
     formatter?: UpdateStringCallback,
     writer?: Deno.Writer
@@ -28,6 +29,9 @@ class Spinner extends Component {
 
     /** Text to display before the spinner */
     private prefixText: string
+
+    /** String that separates text and spinner */
+    private separator: string
 
     /** Spinner type */
     private spinner: SpinnerInterface = spinners['windows']
@@ -44,6 +48,7 @@ class Spinner extends Component {
     constructor({
         text = '',
         prefixText = '',
+        separator = ' ',
         spinner = 'windows',
         formatter,
         writer
@@ -53,18 +58,19 @@ class Spinner extends Component {
 
         this.text = text
         this.prefixText = prefixText
+        this.separator = separator
 
         this.setSpinner(spinner, formatter)
 
     }
 
-    /** Set the text */
+    /** Set the text following the spinner */
     setText(text: string | UpdateStringCallback) {
         this.text = typeof text === 'string' ? text : text(this.text)
         return this
     }
 
-    /** Set the prefixText */
+    /** Set the text preceding the spinner */
     setPrefixText(text: string | UpdateStringCallback) {
         this.text = typeof text === 'string' ? text : text(this.prefixText)
         return this
@@ -103,7 +109,7 @@ class Spinner extends Component {
             //  Format display string
             let frame = this.spinner.frames[this.frame]
             frame = this.formatter ? this.formatter(frame) : frame
-            const str = this.prefixText + " " + frame + " " + this.text
+            const str = this.prefixText + this.separator + frame + this.separator + this.text
 
             //  Re-render the spinner and text every interval
             this.write(cursor.toColumn(0))     //  Move cursor all the way to the left
@@ -138,6 +144,7 @@ class Spinner extends Component {
 
         //  Rerender
         this.render()
+
     }
 
 }
