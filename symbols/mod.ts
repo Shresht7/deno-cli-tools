@@ -1,8 +1,14 @@
 //  Library
 import { blue, green, yellow, red } from '../ansi/colors.ts'
 
-//  https://github.com/sindresorhus/figures
+//  
 
+/**
+ * Terminal Symbols
+ * 
+ * - Source: {@link https://github.com/sindresorhus/figures}
+ * - License: MIT {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/license}
+ */
 export const symbol = {
     tick: '✔',
     info: 'ℹ',
