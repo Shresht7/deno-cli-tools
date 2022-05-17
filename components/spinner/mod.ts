@@ -91,7 +91,7 @@ class Spinner extends Component {
     /** Starts the spinner */
     start({ text, prefixText, spinner, formatter }: Omit<SpinnerProps, 'writer'> = {}) {
 
-        if (this.isRunning()) { throw new Error("Spinner already active") }
+        if (this.isRunning()) { return }
 
         //  If text is passed, update the spinner text
         if (text) { this.setText(text) }
