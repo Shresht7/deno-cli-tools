@@ -1,18 +1,36 @@
-# deno-cli-tools
+<h1>deno-cli-tools</h1>
 
 ---
 
-<br />
 <h2 align='center'>🚧 Work In Progress 🚧</h2>
-<br />
 
 Command-line tools and utilities for Deno 🦕 projects
 
+
+<details>
+
+<summary>Table of Contents</summary>
+
+- [Usage](#usage)
+- [Modules](#modules)
+  - [Colors](#colors)
+  - [Styles](#styles)
+  - [Composition](#composition)
+  - [ANSI Builder](#ansi-builder)
+  - [Cursor](#cursor)
+  - [Clear](#clear)
+  - [Components](#components)
+    - [Progress-Bars](#progress-bars)
+    - [Spinners](#spinners)
+- [📑 License](#-license)
+
+</details>
 
 ## Usage
 
 ```ts
 import { bold, inverse } from 'https://.../ansi/styles.ts'
+import { blue } from 'https://.../ansi/colors.ts'
 console.log(bold(inverse("Hello World!")))
 ```
 
@@ -66,6 +84,8 @@ console.log(inverse('Kinematics'))
 
 ### Composition
 
+Composition helpers provide two utility functions `compose` and `pipe` that allow you to combine many ansi helper functions together.
+
 ```ts
 import { compose } from 'https://.../helpers/composition.ts'
 import { bold, inverse } from 'https://.../ansi/styles.ts'
@@ -77,10 +97,23 @@ console.log(str)
 
 ### ANSI Builder
 
+The ANSI builder API makes use of the power of template string literals to provide a simple and clean way to write ANSI strings. Any ANSI helper function (or any function with `(s: string) => string` signature for that matter) can be passed in the template strings that will be called upon the following string section (and only that section).
+
 ```ts
 import { ansi } from 'https://.../ansi/builder.ts'
 import { red } from 'https://.../ansi/colors.ts'
-console.log(ansi`This is ${red} dangerous! ${inverse} Yes/No`)
+console.log(ansi`This is ${red} dangerous! ${inverse} Are you sure? (Yes/No):`)
+```
+
+<!-- TODO: Output Screenshot -->
+
+Multiple ANSI functions can be composed together using the composition helpers.
+
+```ts
+import { blue } from 'https://.../ansi/colors.ts'
+import { inverse } from 'https://.../ansi/styles.ts'
+import { compose } from 'https://.../helpers/composition.ts'
+console.log(ansi`Yes, ${compose(blue, inverse)} yes it is!`)
 ```
 
 ### Cursor
