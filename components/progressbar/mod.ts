@@ -1,10 +1,10 @@
 //  Library
+import Component from '../mod.ts'
+
+//  Helpers
 import cursor from '../../ansi/cursor.ts'
 import clear from '../../ansi/clear.ts'
 import { ANSIColor, ansiColor } from '../../ansi/colors.ts'
-
-//  Helpers
-import write from '../../helpers/write.ts'
 
 //  =============
 //  PROGRESS BARS
@@ -14,21 +14,21 @@ import write from '../../helpers/write.ts'
 type ProgressBarProps = {
     progressCharacter?: string,
     remainingCharacter?: string,
-    textSeparator?: string,
+    separator?: string,
     caps?: [string, string],
     total?: number,
     color?: ANSIColor,
     writer?: Deno.Writer,
 }
 
-class ProgressBar {
+class ProgressBar extends Component {
 
     /** Character to represent progress */
     private progressCharacter = '█'
     /** Character to represent remaining progress */
     private remainingCharacter = '░'
     /** Separates progress-bar and text */
-    private textSeparator = " - "
+    private separator = " - "
 
     private color: ANSIColor | undefined
 
@@ -40,34 +40,22 @@ class ProgressBar {
     /** Total progress level */
     public total = 20
 
+    /** Progress in percentage */
+    get percentage() {
+        return (this.value / this.total) * 100
+    }
+
     /** Progress-bar is running */
     private isRunning = false
 
-    /** String to write to the console */
-    private str = ""
-
-    /** Deno Writer */
-    private writer: Deno.Writer = Deno.stdout
-
     constructor(properties: ProgressBarProps = {}) {
+        super({ writer: properties.writer })
         this.progressCharacter = properties.progressCharacter || this.progressCharacter
         this.remainingCharacter = properties.remainingCharacter || this.remainingCharacter
-        this.textSeparator = properties.textSeparator || this.textSeparator
+        this.separator = properties.separator || this.separator
         this.caps = properties.caps || this.caps
         this.total = properties.total || this.total
-        this.writer = properties.writer || this.writer
         this.color = properties.color
-    }
-
-    /** Appends the text to the tracked string */
-    private write(text: string) {
-        this.str += text
-    }
-
-    /** Writes to this.writer */
-    private flush() {
-        write(this.str, this.writer)
-        this.str = ""
     }
 
     /** Start the progress-bar */
@@ -77,20 +65,21 @@ class ProgressBar {
         if (this.isRunning) { throw new Error("ProgressBar already active") }
 
         //  Hide cursor
-        write(cursor.hide)
+        this.write(cursor.hide)
 
-        //  Write progress-bar
-        write(this.caps[0] + this.remainingCharacter.repeat(this.total) + this.caps[1])
+        //  Write empty progress-bar
+        this.write(this.caps[0] + this.remainingCharacter.repeat(this.total) + this.caps[1])
 
 
         //  Write progress text
         if (text) {
-            this.write(this.textSeparator)
+            this.write(this.separator)
             this.write(text)
         }
 
         //  Push to this.writer
-        this.flush()
+        this.render()
+
     }
 
     /** Update progress */
@@ -124,12 +113,15 @@ class ProgressBar {
         //  Write progress text
         if (text) {
             this.write(cursor.toColumn(this.caps[0].length + this.total + this.caps[1].length + 1))
-            this.write(this.textSeparator)
+            this.write(this.separator)
             this.write(text)
         }
 
+        //  Clear anything beyond this point
+        this.write(clear.lineFromCursor)
+
         //  Push to this.writer
-        this.flush()
+        this.render()
 
     }
 
@@ -149,13 +141,10 @@ class ProgressBar {
         if (text) { this.write(text + "\n") }
 
         //  Push to this.writer
-        this.flush()
+        this.render()
 
     }
 
-    get percentage() {
-        return (this.value / this.total) * 100
-    }
 }
 
 //  ----------------------
