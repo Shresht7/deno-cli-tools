@@ -1,8 +1,8 @@
 <h1>deno-cli-tools</h1>
 
----
-
 <h2 align='center'>🚧 Work In Progress 🚧</h2>
+
+---
 
 Command-line tools and utilities for Deno 🦕 projects
 
@@ -11,22 +11,22 @@ Command-line tools and utilities for Deno 🦕 projects
 
 <summary>Table of Contents</summary>
 
-- [Usage](#usage)
-- [Modules](#modules)
-  - [Colors](#colors)
-  - [Styles](#styles)
-  - [Composition](#composition)
-  - [ANSI Builder](#ansi-builder)
-  - [Cursor](#cursor)
-  - [Clear](#clear)
-  - [Components](#components)
+- [📖 Usage](#-usage)
+- [📦 Modules](#-modules)
+  - [🎨 Colors](#-colors)
+  - [💄 Styles](#-styles)
+  - [🏭 Composition](#-composition)
+  - [🏗 ANSI Builder](#-ansi-builder)
+  - [☝ Cursor](#-cursor)
+  - [🧼 Clear](#-clear)
+  - [📐 Components](#-components)
     - [Progress-Bars](#progress-bars)
     - [Spinners](#spinners)
 - [📑 License](#-license)
 
 </details>
 
-## Usage
+## 📖 Usage
 
 ```ts
 import { bold, inverse } from 'https://.../ansi/styles.ts'
@@ -34,9 +34,9 @@ import { blue } from 'https://.../ansi/colors.ts'
 console.log(bold(inverse("Hello World!")))
 ```
 
-## Modules
+## 📦 Modules
 
-### Colors
+### 🎨 Colors
 
 ```ts
 import { blue, red } from 'https://.../ansi/colors.ts'
@@ -60,7 +60,7 @@ All colors have `bg`, `bright` and `bgBright` variants. e.g. to use bright yello
 
 [Go to Source](ansi/colors.ts)
 
-### Styles
+### 💄 Styles
 
 ```ts
 import { bold, inverse } from 'https://.../ansi/styles.ts'
@@ -82,7 +82,7 @@ console.log(inverse('Kinematics'))
 
 [Go to Source](ansi/styles.ts)
 
-### Composition
+### 🏭 Composition
 
 Composition helpers provide two utility functions `compose` and `pipe` that allow you to combine many ansi helper functions together.
 
@@ -95,7 +95,7 @@ const str = compose(blue, bold, inverse)('Functional')
 console.log(str)
 ```
 
-### ANSI Builder
+### 🏗 ANSI Builder
 
 The ANSI builder API makes use of the power of template string literals to provide a simple and clean way to write ANSI strings. Any ANSI helper function (or any function with `(s: string) => string` signature for that matter) can be passed in the template strings that will be called upon the following string section (and only that section).
 
@@ -116,7 +116,7 @@ import { compose } from 'https://.../helpers/composition.ts'
 console.log(ansi`Yes, ${compose(blue, inverse)} yes it is!`)
 ```
 
-### Cursor
+### ☝ Cursor
 
 ```ts
 import cursor from 'https://.../ansi/cursor.ts'
@@ -143,7 +143,7 @@ console.log(cursor.right(10))
 
 [Go to Source](ansi/cursor.ts)
 
-### Clear
+### 🧼 Clear
 
 ```ts
 import clear from 'https://.../ansi/clear.ts'
@@ -163,7 +163,7 @@ console.log(clear.entireLine)
 
 [Go to Source](ansi/clear.ts)
 
-### Components
+### 📐 Components
 
 #### Progress-Bars
 
