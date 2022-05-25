@@ -15,7 +15,9 @@ type ANSIStyle =
     | 'hidden'
     | 'strikethrough'
 
-export const style: Record<ANSIStyle, [number, number]> = {
+type ANSICodeTuple = [number, number]
+
+export const style: Record<ANSIStyle, ANSICodeTuple> = {
     bold: [1, 22],  //  21 doesn't work for some reason, 22 does the trick though
     faint: [2, 22],
     italic: [3, 23],
@@ -42,5 +44,8 @@ export const inverse = (str: string) => wrap(str, style.inverse)
 export const hidden = (str: string) => wrap(str, style.hidden)
 /** Strikethrough a string */
 export const strikethrough = (str: string) => wrap(str, style.strikethrough)
+
 /** Add padding around text */
-export const pad = (str: string, n = 1) => ' '.repeat(n) + str + ' '.repeat(n)
+export const pad = (n = 1) => (str: string, char = ' ') => char.repeat(n) + str + char.repeat(n)
+pad.left = (n = 1) => (str: string, char = ' ') => char.repeat(n) + str
+pad.right = (n = 1) => (str: string, char = ' ') => str + char.repeat(n)
