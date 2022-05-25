@@ -15,9 +15,7 @@ type ANSIStyle =
     | 'hidden'
     | 'strikethrough'
 
-type ANSICodeTuple = [number, number]
-
-export const style: Record<ANSIStyle, ANSICodeTuple> = {
+export const style: Record<ANSIStyle, [number, number]> = {
     bold: [1, 22],  //  21 doesn't work for some reason, 22 does the trick though
     faint: [2, 22],
     italic: [3, 23],

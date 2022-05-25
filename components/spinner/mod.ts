@@ -6,12 +6,11 @@ import { spinners, SpinnerType, SpinnerInterface } from './spinners.ts'
 import clear from '../../ansi/clear.ts'
 import cursor from '../../ansi/cursor.ts'
 
-//  Type Definitions
-import { UpdateStringCallback } from '../types.ts'
-
 //  =======
 //  SPINNER
 //  =======
+
+type UpdateStringCallback = (s: string) => string
 
 interface SpinnerProps {
     text?: string,

@@ -1,5 +1,5 @@
+//  Helpers
 import { stringWidth } from './stringWidth.ts'
-
 
 type Alignment = 'left' | 'center' | 'right'
 
@@ -22,23 +22,25 @@ export function align(text: string, options: Options) {
 
     options = Object.assign(defaultOptions, options)
 
-    const arr = text.split(options.split || '\n')
-
     let maxWidth = options.width || 0
-    return arr.map(s => {
-        const width = stringWidth(s)
-        maxWidth = Math.max(width, maxWidth)
-        return [s, width] as const
-    }).map(([s, width]) => {
-        if (options.align === 'right') {
-            return options.pad?.repeat(maxWidth - width) + s
-        } else if (options.align === 'center') {
-            return options.pad?.repeat(Math.floor((maxWidth - width) / 2)) + s
-        }
-    }).join(options.split)
+    return text
+        //  parse as array
+        .split(options.split!)
+        //  determine width and maxWidth
+        .map(s => {
+            const width = stringWidth(s)
+            maxWidth = Math.max(width, maxWidth)
+            return [s, width] as const
+        })
+        //  apply padding
+        .map(([s, width]) => {
+            if (options.align === 'right') {
+                return options.pad!.repeat(maxWidth - width) + s
+            } else if (options.align === 'center') {
+                return options.pad!.repeat(Math.floor((maxWidth - width) / 2)) + s
+            }
+        })
+        //  concatenate as string
+        .join(options.split)
 
 }
-
-console.log('Hello world')
-console.log(align('New\nWorld\nYes', { align: 'center', width: 60 }))
-console.log(align('World\nNew\nNo', { align: 'right' }))

@@ -1,6 +1,8 @@
+//  Library
 import { assertMatch } from 'https://deno.land/std@0.140.0/testing/asserts.ts'
 import { regex } from '../../ansi/regex.ts'
 
+/** Check if string matches the ANSI regex */
 const check = (s: string) => assertMatch(s, regex)
 
 Deno.test('ANSI Regular Expression', async (s) => {

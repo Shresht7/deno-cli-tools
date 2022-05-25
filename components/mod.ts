@@ -1,8 +1,7 @@
 //  Library
 import write from '../helpers/write.ts'
 
-//  Type Definitions
-import type { UpdateStringFn } from '../types/mod.ts'
+type UpdateStringFn = (s: string) => string
 
 interface ConstructorProps {
     contents?: string,

@@ -11,8 +11,8 @@ export const ansi = (templateStr: TemplateStringsArray, ...rest: (string | Strin
 
         //  If the preceding parameter is a function, execute it on the current template string
         if (typeof rest[i - 1] === 'function') {
-            const res = (rest[i - 1] as StringModifier)(curr)
-            acc += res
+            const fn = rest[i - 1] as StringModifier
+            acc += fn(curr)
         }
 
         //  If the template parameter is a string then return normally
