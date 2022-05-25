@@ -2,4 +2,4 @@
 //  TYPE DEFINITIONS
 //  ================
 
-export type UpdateStringCallback = (s: string) => string
+export type UpdateStringFn = (s: string) => string

@@ -2,7 +2,7 @@
 import write from '../helpers/write.ts'
 
 //  Type Definitions
-import { UpdateStringCallback } from './types.ts'
+import type { UpdateStringFn } from '../types/mod.ts'
 
 interface ConstructorProps {
     contents?: string,
@@ -28,7 +28,7 @@ class Component {
     }
 
     /** Update the component text contents */
-    protected _update(contents: string | UpdateStringCallback) {
+    protected _update(contents: string | UpdateStringFn) {
         this.contents = typeof contents === 'string'
             ? contents
             : contents(this.contents)
