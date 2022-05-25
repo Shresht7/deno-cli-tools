@@ -10,22 +10,24 @@ type Options = {
     align: Alignment,
     split?: string,
     pad?: string,
+    width?: number,
 }
 
 const defaultOptions: Options = {
     align: Alignment.LEFT,
     split: '\n',
-    pad: ' '
+    pad: ' ',
+    width: 0
 }
 
 export function align(text: string, options: Options) {
     if (options.align === Alignment.LEFT) { return text }    //  If left-aligned, return as is
 
-    options = Object.assign(defaultOptions, options) as Required<Options>
+    options = Object.assign(defaultOptions, options)
 
     const arr = text.split(options.split || '\n')
 
-    let maxWidth = 0
+    let maxWidth = options.width || 0
     return arr.map(s => {
         const width = stringWidth(s)
         maxWidth = Math.max(width, maxWidth)
@@ -41,5 +43,5 @@ export function align(text: string, options: Options) {
 }
 
 console.log('Hello world')
-console.log(align('New\nWorld\nYes', { align: Alignment.CENTER }))
+console.log(align('New\nWorld\nYes', { align: Alignment.CENTER, width: 60 }))
 console.log(align('World\nNew\nNo', { align: Alignment.RIGHT }))
