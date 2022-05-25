@@ -1,5 +1,6 @@
 //  Helpers
 import { stringWidth } from './stringWidth.ts'
+import { pad } from '../ansi/styles.ts'
 
 type Alignment = 'left' | 'center' | 'right'
 
@@ -18,8 +19,6 @@ const defaultOptions: Options = {
 }
 
 export function align(text: string, options: Options) {
-    if (options.align === 'left') { return text }    //  If left-aligned, return as is
-
     options = Object.assign(defaultOptions, options)
 
     let maxWidth = options.width || 0
@@ -34,10 +33,15 @@ export function align(text: string, options: Options) {
         })
         //  apply padding
         .map(([s, width]) => {
-            if (options.align === 'right') {
-                return options.pad!.repeat(maxWidth - width) + s
+            if (options.align === 'left') {
+                const space = maxWidth - width
+                return pad.right(space)(s, options!.pad)
             } else if (options.align === 'center') {
-                return options.pad!.repeat(Math.floor((maxWidth - width) / 2)) + s
+                const space = Math.floor((maxWidth - width) / 2)
+                return pad(space)(s, options!.pad)
+            } else if (options.align === 'right') {
+                const space = maxWidth - width
+                return pad.left(space)(s, options!.pad)
             }
         })
         //  concatenate as string
