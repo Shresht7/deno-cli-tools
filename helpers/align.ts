@@ -1,10 +1,7 @@
 import { stringWidth } from './stringWidth.ts'
 
-enum Alignment {
-    LEFT = 'left',
-    CENTER = 'center',
-    RIGHT = 'right'
-}
+
+type Alignment = 'left' | 'center' | 'right'
 
 type Options = {
     align: Alignment,
@@ -14,14 +11,14 @@ type Options = {
 }
 
 const defaultOptions: Options = {
-    align: Alignment.LEFT,
+    align: 'left',
     split: '\n',
     pad: ' ',
     width: 0
 }
 
 export function align(text: string, options: Options) {
-    if (options.align === Alignment.LEFT) { return text }    //  If left-aligned, return as is
+    if (options.align === 'left') { return text }    //  If left-aligned, return as is
 
     options = Object.assign(defaultOptions, options)
 
@@ -33,9 +30,9 @@ export function align(text: string, options: Options) {
         maxWidth = Math.max(width, maxWidth)
         return [s, width] as const
     }).map(([s, width]) => {
-        if (options.align === Alignment.RIGHT) {
+        if (options.align === 'right') {
             return options.pad?.repeat(maxWidth - width) + s
-        } else if (options.align === Alignment.CENTER) {
+        } else if (options.align === 'center') {
             return options.pad?.repeat(Math.floor((maxWidth - width) / 2)) + s
         }
     }).join(options.split)
@@ -43,5 +40,5 @@ export function align(text: string, options: Options) {
 }
 
 console.log('Hello world')
-console.log(align('New\nWorld\nYes', { align: Alignment.CENTER, width: 60 }))
-console.log(align('World\nNew\nNo', { align: Alignment.RIGHT }))
+console.log(align('New\nWorld\nYes', { align: 'center', width: 60 }))
+console.log(align('World\nNew\nNo', { align: 'right' }))
