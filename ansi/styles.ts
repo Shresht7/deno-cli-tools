@@ -5,7 +5,7 @@ import { wrap } from './codes.ts'
 //  ANSI STYLE
 //  ==========
 
-type ANSIStyle =
+export type ANSIStyle =
     | 'bold'
     | 'faint'
     | 'italic'
