@@ -6,7 +6,7 @@
 type StringModifier = (s: string) => string
 
 /** ANSI template string builder */
-export const ansi = (templateStr: TemplateStringsArray, ...rest: (string | StringModifier)[]) => {
+export const ansi = (templateStr: TemplateStringsArray, ...rest: (string | number | StringModifier)[]) => {
     return templateStr.reduce((acc, curr, i) => {
 
         //  If the preceding parameter is a function, execute it on the current template string
@@ -16,8 +16,9 @@ export const ansi = (templateStr: TemplateStringsArray, ...rest: (string | Strin
         }
 
         //  If the template parameter is a string then return normally
-        if (typeof rest[i] === 'string') {
-            acc += rest[i] || ''
+        if (typeof rest[i - 1] === 'string' || typeof rest[i - 1] === 'number') {
+            acc += rest[i - 1].toString() || ''
+            acc += curr
         }
 
         return acc
