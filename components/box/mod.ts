@@ -33,7 +33,7 @@ export function box({ contents, title, type = 'classic', alignment = 'center' }:
     //  Add the top and bottom sections
     title = align(' ' + title + ' ', { align: alignment, pad: box.top, width: maxWidth })
     arr.unshift(box.topLeft + title + box.topRight)
-    arr.push(box.bottomLeft + box.top.repeat(maxWidth) + box.bottomRight)
+    arr.push(box.bottomLeft + box.bottom.repeat(maxWidth) + box.bottomRight)
 
     //  Concatenate as string
     return arr.join('\n')
