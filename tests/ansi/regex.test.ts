@@ -1,7 +1,7 @@
 //  TODO: Fix Tests
 
 //  Library
-// import { assertMatch } from 'https://deno.land/std@0.140.0/testing/asserts.ts'
+// import { assertMatch } from '../../library/asserts.ts'
 // import { regex } from '../../ansi/regex.ts'
 
 /** Check if string matches the ANSI regex */

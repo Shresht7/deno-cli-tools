@@ -1,6 +1,6 @@
 //  Library
 import { align } from '../../helpers/align.ts'
-import { assertEquals } from 'https://deno.land/std@0.140.0/testing/asserts.ts'
+import { assertEquals } from '../../library/asserts.ts'
 
 Deno.test('align', async (t) => {
 
