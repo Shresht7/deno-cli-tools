@@ -5,46 +5,57 @@ import { pad } from '../ansi/styles.ts'
 type Alignment = 'left' | 'center' | 'right'
 
 type Options = {
-    align: Alignment,
+    align?: Alignment,
     split?: string,
     pad?: string,
     width?: number,
 }
 
-const defaultOptions: Options = {
-    align: 'left',
-    split: '\n',
-    pad: ' ',
-    width: 0
-}
+/** Align text to the left, right or center */
+export function align(text: string, options: Options = {}) {
 
-export function align(text: string, options: Options) {
-    options = Object.assign(defaultOptions, options)
+    //  Assign options
+    options = {
+        align: 'left',
+        split: '\n',
+        pad: ' ',
+        width: 0,
+        ...options
+    }
 
+    /** Maximum width of the text to display */
     let maxWidth = options.width || 0
+
     return text
-        //  parse as array
+        //  Parse as array
         .split(options.split!)
-        //  determine width and maxWidth
+        //  Determine width and maxWidth
         .map(s => {
             const width = stringWidth(s)
             maxWidth = Math.max(width, maxWidth)
             return [s, width] as const
         })
-        //  apply padding
+        //  Apply padding
         .map(([s, width]) => {
-            if (options.align === 'left') {
-                const space = maxWidth - width
-                return pad.right(space)(s, options!.pad)
-            } else if (options.align === 'center') {
-                const space = Math.floor((maxWidth - width) / 2)
-                return pad(space)(s, options!.pad)
-            } else if (options.align === 'right') {
-                const space = maxWidth - width
-                return pad.left(space)(s, options!.pad)
+            const space = maxWidth - width     //  Difference of maxWidth and width
+            switch (options.align) {
+                case 'left': {
+                    return pad.right(space)(s, options.pad)
+                }
+                case 'center': {
+                    const half = Math.floor(space / 2)
+                    if (space % 2 === 0) {
+                        return pad(half)(s, options.pad)
+                    } else {
+                        return options.pad?.repeat(half) + s + options.pad?.repeat(half + 1)
+                    }
+                }
+                case 'right': {
+                    return pad.left(space)(s, options.pad)
+                }
             }
         })
-        //  concatenate as string
+        //  Concatenate back to string
         .join(options.split)
 
 }
