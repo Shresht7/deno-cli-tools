@@ -35,8 +35,8 @@ Deno.test('align', async (t) => {
     })
 
     await t.step('should split an odd difference evenly', () => {
-        assertEquals(align('abc', { align: 'center', pad: '-', width: 8 }), '---abc---')
-        assertEquals(align('abcd', { align: 'center', pad: '-', width: 7 }), '--abcd--')
+        assertEquals(align('abc', { align: 'center', pad: '-', width: 8 }), '--abc---')
+        assertEquals(align('abcd', { align: 'center', pad: '-', width: 7 }), '-abcd--')
     })
 
 })
