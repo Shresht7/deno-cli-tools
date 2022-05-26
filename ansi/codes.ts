@@ -6,7 +6,7 @@
 export enum EscapeCode {
     Unicode = '\u001b',
     Ctrl = '^[',
-    Octal = '\033',
+    // Octal = '\033',
     Hexadecimal = '\x1b',
     Decimal = '27'
 }
