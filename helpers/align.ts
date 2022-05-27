@@ -2,7 +2,7 @@
 import { stringWidth } from './stringWidth.ts'
 import { pad } from '../ansi/styles.ts'
 
-type Alignment = 'left' | 'center' | 'right'
+export type Alignment = 'left' | 'center' | 'right'
 
 type Options = {
     align?: Alignment,

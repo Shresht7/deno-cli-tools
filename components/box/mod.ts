@@ -1,7 +1,7 @@
 //  Library
 import boxes from './boxes.json' assert { type: 'json' }
 import { stringWidth } from '../../helpers/stringWidth.ts'
-import { align } from '../../helpers/align.ts'
+import { align, Alignment } from '../../helpers/align.ts'
 
 //  =====
 //  BOXES
@@ -11,7 +11,7 @@ type BoxProps = {
     contents: string,
     title?: string,
     type?: keyof typeof boxes,
-    alignment?: 'left' | 'center' | 'right'
+    alignment?: Alignment
 }
 
 export function box({ contents, title, type = 'classic', alignment = 'center' }: BoxProps) {
