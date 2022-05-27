@@ -59,3 +59,10 @@ export function align(text: string, options: Options = {}) {
         .join(options.split)
 
 }
+
+/** Align text to the left */
+align.left = (text: string, options: Omit<Options, 'align'> = {}) => align(text, { align: 'left', ...options })
+/** Align text to the center */
+align.center = (text: string, options: Omit<Options, 'align'> = {}) => align(text, { align: 'center', ...options })
+/** Align text to the right */
+align.right = (text: string, options: Omit<Options, 'align'> = {}) => align(text, { align: 'right', ...options })
