@@ -6,8 +6,8 @@ import { assertEquals } from '../../library/asserts.ts'
 
 Deno.test('align', async (t) => {
 
-    await t.step('should align to the left by default', () => {
-        assertEquals(align('LEFT'), 'LEFT')
+    await t.step('should align to the center by default', () => {
+        assertEquals(align('MAIN', { width: 10 }), '   MAIN   ')
     })
 
     await t.step('should align multiple lines', () => {
@@ -39,6 +39,12 @@ Deno.test('align', async (t) => {
     await t.step('should split an odd difference evenly', () => {
         assertEquals(align('abc', { align: 'center', pad: '-', width: 8 }), '--abc---')
         assertEquals(align('abcd', { align: 'center', pad: '-', width: 7 }), '-abcd--')
+    })
+
+    await t.step('can be called using shorthands', () => {
+        assertEquals(align.left('left', { width: 10 }), 'left      ')
+        assertEquals(align.center('center', { width: 10 }), '  center  ')
+        assertEquals(align.right('right', { width: 10 }), '     right')
     })
 
 })
