@@ -16,7 +16,7 @@ export function align(text: string, options: Options = {}) {
 
     //  Assign options
     options = {
-        align: 'left',
+        align: 'center',
         split: '\n',
         pad: ' ',
         width: 0,
