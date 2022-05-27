@@ -67,7 +67,7 @@ export const symbol = {
     fiveSixths: '⅚',
     fiveEighths: '⅝',
     sevenEighths: '⅞',
-}
+} as const
 
 export const status = {
     info: blue(symbol.info),
@@ -76,4 +76,4 @@ export const status = {
     error: red(symbol.cross),
     increase: green(symbol.triangleUp),
     decrease: green(symbol.triangleDown),
-}
+} as const
