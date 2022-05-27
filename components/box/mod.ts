@@ -8,13 +8,12 @@ import { align, Alignment } from '../../helpers/align.ts'
 //  =====
 
 type BoxProps = {
-    contents: string,
     title?: string,
     type?: keyof typeof boxes,
     alignment?: Alignment
 }
 
-export function box({ contents, title, type = 'classic', alignment = 'center' }: BoxProps) {
+export function box(contents: string, { title, type = 'classic', alignment = 'center' }: BoxProps) {
 
     //  Split input text into an array
     let arr = contents.split('\n')
