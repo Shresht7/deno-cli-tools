@@ -1,5 +1,5 @@
-import Spinner from '../../../components/spinner/mod.ts'
-import { spinners } from '../../../components/spinner/spinners.ts'
+import Spinner from '../mod.ts'
+import { spinners } from '../spinners.ts'
 
 const spinnerTypes = Object.keys(spinners)
 

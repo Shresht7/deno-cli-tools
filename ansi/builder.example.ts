@@ -1,11 +1,11 @@
 //  ANSI Template String Builder
-import { ansi } from '../../ansi/builder.ts'
+import { ansi } from './builder.ts'
 
 //  Helper Functions
-import { compose } from '../../helpers/composition.ts'
-import { RESET as reset } from '../../ansi/codes.ts'
-import { blue, yellow, magenta } from '../../ansi/colors.ts'
-import { inverse, bold, italic, faint, pad } from '../../ansi/styles.ts'
+import { compose } from '../helpers/composition.ts'
+import { RESET as reset } from './codes.ts'
+import { blue, yellow, magenta } from './colors.ts'
+import { inverse, bold, italic, faint, pad } from './styles.ts'
 
 console.log(
     ansi`

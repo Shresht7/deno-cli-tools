@@ -1,4 +1,4 @@
-import { align } from '../../helpers/align.ts'
+import { align } from './align.ts'
 
 const text = `
 deno-cli-tools

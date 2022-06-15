@@ -1,4 +1,4 @@
-import ProgressBar from '../../../components/progressbar/mod.ts'
+import ProgressBar from '../mod.ts'
 
 const progress = new ProgressBar({ color: 'green' })
 

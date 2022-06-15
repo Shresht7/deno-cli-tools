@@ -1,22 +1,19 @@
-import { box } from '../../../components/box/mod.ts'
+import { box } from '../mod.ts'
 
-console.log(box({
+console.log(box('Contents Left', {
     title: 'Title Left',
-    contents: 'Contents Left',
     type: 'double',
     alignment: 'left'
 }))
 
-console.log(box({
+console.log(box('Contents Center', {
     title: 'Title Center',
-    contents: 'Contents Center',
     type: 'double',
     alignment: 'center'
 }))
 
-console.log(box({
+console.log(box('Contents Right', {
     title: 'Title Right',
-    contents: 'Contents Right',
     type: 'double',
     alignment: 'right'
 }))

@@ -1,4 +1,4 @@
-import Spinner from '../../../components/spinner/mod.ts'
+import Spinner from '../mod.ts'
 
 const spinner = new Spinner({
     prefixText: 'Custom',

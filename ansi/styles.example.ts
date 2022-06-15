@@ -7,7 +7,7 @@ import {
     inverse,
     hidden,
     strikethrough
-} from '../../ansi/styles.ts'
+} from './styles.ts'
 
 console.log(`
     ${bold('Bold')}
