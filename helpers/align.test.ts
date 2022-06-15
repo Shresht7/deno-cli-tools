@@ -1,8 +1,8 @@
 //  Library
-import { align } from '../../helpers/align.ts'
+import { align } from './align.ts'
 
 //  Testing
-import { assertEquals } from '../../library/asserts.ts'
+import { assertEquals } from '../library/asserts.ts'
 
 Deno.test('align', async (t) => {
 

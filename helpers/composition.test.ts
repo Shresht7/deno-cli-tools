@@ -1,8 +1,8 @@
 //  Library
-import { compose, pipe } from '../../helpers/composition.ts'
+import { compose, pipe } from './composition.ts'
 
 //  Testing
-import { assertEquals } from '../../library/asserts.ts'
+import { assertEquals } from '../library/asserts.ts'
 
 //  Functions to use for tests
 const one = (s: string) => `<one>${s}</one>`

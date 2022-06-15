@@ -1,14 +1,14 @@
 //  Library
-import { ansi } from '../../ansi/builder.ts'
+import { ansi } from './builder.ts'
 
 //  Testing
-import { assertEquals } from '../../library/asserts.ts'
+import { assertEquals } from '../library/asserts.ts'
 
 //  Helpers
-import { blue, black, white } from '../../ansi/colors.ts'
-import { bold } from '../../ansi/styles.ts'
-import { RESET } from '../../ansi/codes.ts'
-import { compose } from '../../helpers/composition.ts'
+import { blue, black, white } from './colors.ts'
+import { bold } from './styles.ts'
+import { RESET } from './codes.ts'
+import { compose } from '../helpers/composition.ts'
 
 
 Deno.test('ANSI Template String Builder', async (t) => {
