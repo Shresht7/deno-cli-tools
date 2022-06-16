@@ -1,11 +1,8 @@
-/**
- * Terminal Symbols
- * 
- * - Source: {@link https://github.com/sindresorhus/figures}
- * - Link: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/index.js}
- * - License: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/license}
- */
-export const symbol = {
+//  Library
+import { isUnicodeSupported } from '../helpers/isUnicodeSupported.ts'
+
+/** Terminal Symbols */
+export const _symbol = {
     square: '█',
     squareDarkShade: '▓',
     squareMediumShade: '▒',
@@ -237,8 +234,8 @@ export const symbol = {
 } as const
 
 /** Fallback symbols for terminals that do not support unicode */
-export const fallbackSymbols = {
-    ...symbol,
+export const _fallbackSymbols = {
+    ..._symbol,
     tick: '√',
     info: 'i',
     warning: '‼',
@@ -276,3 +273,12 @@ export const fallbackSymbols = {
     oneNinth: '1/9',
     oneTenth: '1/10',
 } as const
+
+/**
+ * Terminal Symbols
+ * 
+ * - Source: {@link https://github.com/sindresorhus/figures}
+ * - Link: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/index.js}
+ * - License: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/license}
+ */
+export const symbol = isUnicodeSupported() ? _symbol : _fallbackSymbols
