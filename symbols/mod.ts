@@ -6,6 +6,9 @@ import { blue, green, yellow, red } from '../ansi/colors.ts'
 /** Terminal Symbols */
 export const symbol = isUnicodeSupported() ? _symbol : _fallbackSymbols
 
+/** Terminal Symbols for terminals that do not support unicode */
+export const fallbackSymbols = _fallbackSymbols
+
 /** Status Symbols with Color */
 export const status = {
     info: blue(symbol.info),
