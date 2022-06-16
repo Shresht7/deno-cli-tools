@@ -75,5 +75,5 @@ export const status = {
     warning: yellow(symbol.warning),
     error: red(symbol.cross),
     increase: green(symbol.triangleUp),
-    decrease: green(symbol.triangleDown),
+    decrease: red(symbol.triangleDown),
 } as const
