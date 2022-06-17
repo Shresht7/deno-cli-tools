@@ -23,5 +23,5 @@ export const regex = new RegExp([
 //     'g'
 // )
 
-/** Strip ANSI codes from string */
+/** Strip ANSI codes from the string */
 export const strip = (s: string) => s.replace(regex, '')
