@@ -25,7 +25,7 @@ export const BEL = '\u0007'
 //  HELPER FUNCTION
 //  ---------------
 
-interface Code {
+interface ANSICode {
     open: string
     close: string
     regexp: {
@@ -35,7 +35,7 @@ interface Code {
 }
 
 /** Helper function to format the given ANSI codes */
-export const code = (open: number | number[], close: number): Code => {
+export const code = (open: number | number[], close: number): ANSICode => {
     open = Array.isArray(open) ? open : [open]
     return {
         open: `${ESC}[${open.join(';')}m`,
@@ -53,7 +53,7 @@ export const code = (open: number | number[], close: number): Code => {
  * @param code ansi code to wrap
  * @param enabled if false, return the string unaltered
  */
-export const wrap = (str: string, code: Code, enabled = true) => enabled
+export const wrap = (str: string, code: ANSICode, enabled = true) => enabled
     ? code.open + str.replace(code.regexp.close, code.open) + code.close
     : str
 

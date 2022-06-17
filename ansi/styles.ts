@@ -16,7 +16,7 @@ export type ANSIStyle =
     | 'strikethrough'
 
 
-export const styles = {
+export const style = {
     bold: [1, 22],  //  21 doesn't work for some reason, 22 does the trick though
     faint: [2, 22],
     italic: [3, 23],
@@ -41,21 +41,21 @@ function construct(tuple: readonly [number, number]) {
 }
 
 /** Makes the string bold */
-export const bold = construct(styles.bold)
+export const bold = construct(style.bold)
 /** Makes the string faint */
-export const faint = construct(styles.faint)
+export const faint = construct(style.faint)
 /** Makes the string italic */
-export const italic = construct(styles.italic)
+export const italic = construct(style.italic)
 /** Makes the string underlined */
-export const underline = construct(styles.underline)
+export const underline = construct(style.underline)
 /** Makes the string blink */
-export const blinking = construct(styles.blinking)
+export const blinking = construct(style.blinking)
 /** Inverts the string's colors */
-export const inverse = construct(styles.inverse)
+export const inverse = construct(style.inverse)
 /** Hides the string */
-export const hidden = construct(styles.hidden)
+export const hidden = construct(style.hidden)
 /** Strikethrough a string */
-export const strikethrough = construct(styles.strikethrough)
+export const strikethrough = construct(style.strikethrough)
 
 /** Add padding around text */
 export const pad = (n = 1) => (str: string, char = ' ') => char.repeat(n) + str + char.repeat(n)
