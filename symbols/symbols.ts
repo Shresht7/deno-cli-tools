@@ -282,3 +282,5 @@ export const _fallbackSymbols = {
  * - License: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/license}
  */
 export const symbol = isUnicodeSupported() ? _symbol : _fallbackSymbols
+
+export type symbolName = keyof typeof symbol

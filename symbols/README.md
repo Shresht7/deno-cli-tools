@@ -13,9 +13,14 @@ Unicode symbols for the terminal.
 ```ts
 import { symbol, status } from 'https://.../symbols/mod.ts'
 
-console.log(symbol.warning + " Are you sure?")
-console.log(status.success, "Done")
+console.log(symbol.warning + " Are you sure?")  //  ⚠ Are you sure?
+console.log(status.success, "Done") //  ✔ Done
+console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, symbol.arrowRight) // Controls: ↑ ↓ ← →
 ```
+
+## Status
+
+![status](./status.png)
 
 ## Links
 
