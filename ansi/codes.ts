@@ -2,10 +2,9 @@
 //  ANSI ESCAPE CODES
 //  =================
 
-//  ESCAPE CODES : Unicode | Ctrl | Octal  | Hexadecimal | Decimal
+//  ESCAPE CODES : Unicode | Octal  | Hexadecimal | Decimal
 export enum EscapeCode {
     Unicode = '\u001b',
-    Ctrl = '^[',
     // Octal = '\033',
     Hexadecimal = '\x1b',
     Decimal = '27'
@@ -14,10 +13,14 @@ export enum EscapeCode {
 //  Escape Code
 export const ESC = EscapeCode.Unicode
 
+//  Control Sequence Introducer
+export const CSI = `${ESC}[`
+
 //  Reset Code
 export const RESET = `${ESC}[0m`
 
 //  Miscellaneous
+export const CTRL = '^['
 export const OSC = '\u001B]'
 export const BEL = '\u0007'
 
