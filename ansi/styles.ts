@@ -29,12 +29,10 @@ export const styles: Record<ANSIStyle, CodeTuple> = {
 }
 
 function construct(tuple: [number, number]) {
+    const c = code(tuple[0], tuple[1])
     return Object.assign(
-        (str: string) => wrap(str, tuple),
-        {
-            open: code(tuple[0]),
-            close: code(tuple[1]),
-        }
+        (str: string) => wrap(str, c),
+        c
     )
 }
 

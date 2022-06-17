@@ -25,12 +25,25 @@ export const BEL = '\u0007'
 //  HELPER FUNCTION
 //  ---------------
 
+interface Code {
+    open: string
+    close: string
+}
+
 /** Helper function to format the given ANSI code */
-export const code = (n: number) => `${ESC}[${n}m`
+export const code = (open: number | number[], close: number): Code => {
+    open = Array.isArray(open) ? open : [open]
+    return {
+        open: `${ESC}[${open.join(';')}m`,
+        close: `${ESC}[${close}m`,
+    }
+}
 
 /**
  * Wrap ANSICode around string
  * @param str text to wrap string around
  * @param tuple ansiCode tuple to wrap
  */
-export const wrap = (str: string, tuple: [number, number]) => code(tuple[0]) + str + code(tuple[1])
+export const wrap = (str: string, code: Code, enabled = true) => enabled
+    ? code.open + str + code.close
+    : str
