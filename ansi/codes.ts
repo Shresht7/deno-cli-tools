@@ -56,3 +56,7 @@ export const code = (open: number | number[], close: number): Code => {
 export const wrap = (str: string, code: Code, enabled = true) => enabled
     ? code.open + str.replace(code.regexp.close, code.open) + code.close
     : str
+
+
+/** Reset the given string */
+export const reset = (str: string) => wrap(str, code(0, 0))
