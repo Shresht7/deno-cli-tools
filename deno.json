@@ -1,0 +1,5 @@
+{
+    "tasks": {
+        "examples": "deno run --allow-read ./scripts/example.ts"
+    }
+}
