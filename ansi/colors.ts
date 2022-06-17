@@ -1,5 +1,14 @@
 //  Library
-import { wrap, code, ESC, RESET } from './codes.ts'
+import { wrap, code } from './codes.ts'
+
+/** Enable ANSI Colors */
+let enabled = !Deno?.noColor ?? true
+
+/** Helper function to enable or disable ANSI Colors */
+export const setColorEnabled = (bool: boolean) => enabled = bool
+
+/** Helper function to get whether ANSI Colors are enabled or disabled */
+export const getColorEnabled = () => enabled
 
 //  ==========
 //  ANSI COLOR
@@ -41,7 +50,7 @@ const brightOffset = 60
 function construct(tuple: [number, number]) {
     const c = code(tuple[0], tuple[1])
     return Object.assign(
-        (str: string) => wrap(str, c),
+        (str: string) => wrap(str, c, enabled),
         c
     )
 }
@@ -83,6 +92,6 @@ export const white = ansiColor('white')
 export type RGBColor = [number, number, number]
 
 /** Colors the string with the given rgb values */
-export const rgb = (str: string, [r, g, b]: RGBColor) => `${ESC}[38;2;${r};${g};${b}m${str}${RESET}`
+export const rgb = (str: string, [r, g, b]: RGBColor) => wrap(str, code([38, 2, r, g, b], 39), enabled)
 /** Colors the string's background with the given rgb values */
-rgb.bg = (str: string, [r, g, b]: RGBColor) => `${ESC}[48;2;${r};${g};${b}m${str}${RESET}`
+rgb.bg = (str: string, [r, g, b]: RGBColor) => wrap(str, code([48, 2, r, g, b], 49), enabled)

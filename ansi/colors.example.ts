@@ -2,6 +2,7 @@
 import {
     color,
     rgb,
+    setColorEnabled,
     ansiColor,
     ANSIColor
 } from './colors.ts'
@@ -12,6 +13,10 @@ import { h } from '../helpers/styles.ts'
 /* Run this example with:
     deno run ansi/colors.example.ts
 */
+
+if (Deno.args.includes('--no-color')) {
+    setColorEnabled(false)
+}
 
 h('ANSI Colors')
 
