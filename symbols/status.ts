@@ -1,6 +1,6 @@
 //  Library
 import { symbol } from './mod.ts'
-import { red, blue, green, yellow } from '../ansi/colors.ts'
+import { red, blue, green, yellow, getColorEnabled } from '../ansi/colors.ts'
 
 /** Status Symbols */
 export const _status = {
@@ -61,4 +61,7 @@ export const _statusWithColor = {
 } as const
 
 /** Status Symbols */
-export const status = _status
+export const status = (getColorEnabled()
+    ? _statusWithColor
+    : _status
+) as typeof _status
