@@ -3,7 +3,7 @@
 Unicode symbols for the terminal.
 
 ```
-✔ ℹ ⚠ ✖ ☰ ↑ ↓ ← → ♪ ♫
+✔ ℹ ⚠ ✖ ☰ ↑ ↓ ← → ♪ ♫ ■ ● ․ … › ▲ ▴ ▼ ▾ ◂ ▸ ⌂ ♥ ↔ ↕ ≈ ≠ ≤ ≥ ≡ ∞ ෴ ★ ▶ ⬢
 ```
 
 > Uses a fallback set of characters on terminals that do not support unicode.
@@ -20,7 +20,9 @@ console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, sy
 
 ## Status
 
-![status](./status.png)
+<div align='center'>
+    <img src='./status.png' alt='status' />
+</div>
 
 ## Links
 
