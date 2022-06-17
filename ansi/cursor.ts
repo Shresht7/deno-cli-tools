@@ -25,7 +25,7 @@ const cursor = {
     toPrevLine: (n = 1) => `${ESC}[${n}F`,
     /** Moves the cursor to a given column position */
     toColumn: (n = 0) => `${ESC}[${n}G`,
-    /** Returns the current cursor position */
+    /** Returns the current cursor position (reports as `ESC[#;#R`) */
     requestPosition: `${ESC}[6n`,
     /** Makes the cursor visible */
     show: `${ESC}[?25h`,
