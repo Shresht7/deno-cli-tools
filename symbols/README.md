@@ -24,8 +24,11 @@ console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, sy
     <img src='./status.png' alt='status' />
 </div>
 
+> status symbols obey the `no-color` flags.
+
 ## Links
 
 Inspired by and heavily borrows from the following projects:
 
 - https://github.com/sindresorhus/figures
+- https://github.com/sindresorhus/log-symbols

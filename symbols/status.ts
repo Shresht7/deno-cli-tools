@@ -55,7 +55,12 @@ const getSymbol = <T extends statusName>(name: T) => (getColorEnabled()
     : _statusWithoutColor[name]
 )
 
-/** Status Symbols */
+/**
+ * Status Symbols
+ * 
+ * @example
+ * console.log(status.info, status.warn, status.error)
+ */
 export const status = Object.fromEntries(
     Object.entries(_status).map(([name, _]) => [name, getSymbol(name as statusName)])
 ) as typeof _status

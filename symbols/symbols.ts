@@ -280,6 +280,9 @@ export const _fallbackSymbols = {
  * - Source: {@link https://github.com/sindresorhus/figures}
  * - Link: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/index.js}
  * - License: {@link https://github.com/sindresorhus/figures/blob/62b5c69bd1ff54a523857b89f1fad184fb553ba5/license}
+ * 
+ * @example
+ * console.log(symbol.tick, symbol.triangleUp)
  */
 export const symbol = isUnicodeSupported() ? _symbol : _fallbackSymbols
 
