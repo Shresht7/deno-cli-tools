@@ -1,5 +1,5 @@
 //  Library
-import { wrap } from './codes.ts'
+import { wrap, code } from './codes.ts'
 
 //  ==========
 //  ANSI STYLE
@@ -15,7 +15,9 @@ export type ANSIStyle =
     | 'hidden'
     | 'strikethrough'
 
-export const style: Record<ANSIStyle, [number, number]> = {
+type CodeTuple = [number, number]
+
+export const styles: Record<ANSIStyle, CodeTuple> = {
     bold: [1, 22],  //  21 doesn't work for some reason, 22 does the trick though
     faint: [2, 22],
     italic: [3, 23],
@@ -26,22 +28,39 @@ export const style: Record<ANSIStyle, [number, number]> = {
     strikethrough: [9, 29],
 }
 
+function construct(tuple: [number, number]) {
+    return Object.assign(
+        (str: string) => wrap(str, tuple),
+        {
+            open: code(tuple[0]),
+            close: code(tuple[1]),
+        }
+    )
+}
+
 /** Makes the string bold */
-export const bold = (str: string) => wrap(str, style.bold)
+export const bold = construct(styles.bold)
+
 /** Makes the string faint */
-export const faint = (str: string) => wrap(str, style.faint)
+export const faint = construct(styles.faint)
+
 /** Makes the string italic */
-export const italic = (str: string) => wrap(str, style.italic)
+export const italic = construct(styles.italic)
+
 /** Makes the string underlined */
-export const underline = (str: string) => wrap(str, style.underline)
+export const underline = construct(styles.underline)
+
 /** Makes the string blink */
-export const blinking = (str: string) => wrap(str, style.blinking)
+export const blinking = construct(styles.blinking)
+
 /** Inverts the string's colors */
-export const inverse = (str: string) => wrap(str, style.inverse)
+export const inverse = construct(styles.inverse)
+
 /** Hides the string */
-export const hidden = (str: string) => wrap(str, style.hidden)
+export const hidden = construct(styles.hidden)
+
 /** Strikethrough a string */
-export const strikethrough = (str: string) => wrap(str, style.strikethrough)
+export const strikethrough = construct(styles.strikethrough)
 
 /** Add padding around text */
 export const pad = (n = 1) => (str: string, char = ' ') => char.repeat(n) + str + char.repeat(n)

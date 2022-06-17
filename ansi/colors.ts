@@ -1,5 +1,5 @@
 //  Library
-import { wrap, ESC, RESET } from './codes.ts'
+import { wrap, code, ESC, RESET } from './codes.ts'
 
 //  ==========
 //  ANSI COLOR
@@ -34,16 +34,36 @@ const bgOffset = 10
 const brightOffset = 60
 
 /**
- * Initializes ANSIColor code functions
- * @param clr ANSIColor code
- * @returns Function to apply colors
+ * Construct an ANSIColor object. The object can be called as a function on a string
+ * to wrap the ANSI escape codes around it. The object also has `open` and `close` properties
+ * that store the opening and closing ANSI escape code respectively.
+ */
+function construct(tuple: [number, number]) {
+    return Object.assign(
+        (str: string) => wrap(str, tuple)
+        ,
+        {
+            open: code(tuple[0]),
+            close: code(tuple[1]),
+        }
+    )
+}
+
+/**
+ * Constructs ANSIColor objects. The objects can be called as a function on a string
+ * to wrap the ANSI escape codes around it. The objects also have `bg`, `bright` and `bgBright`
+ * properties that are ANSIColor objects themselves. Each ANSIColor object has an `open` and `close`
+ * property that stores the opening and closing ANSI escape code respectively.
  */
 export const ansiColor = (clr: ANSIColor) => {
-    const c = (str: string) => wrap(str, color[clr])
-    c.bg = (str: string) => wrap(str, color[clr].map(x => x + bgOffset) as [number, number])
-    c.bright = (str: string) => wrap(str, color[clr].map(x => x + brightOffset) as [number, number])
-    c.bgBright = (str: string) => wrap(str, color[clr].map(x => x + bgOffset + brightOffset) as [number, number])
-    return c
+    return Object.assign(
+        construct(color[clr]),
+        {
+            bg: construct([color[clr][0] + bgOffset, color[clr][1] + bgOffset]),
+            bright: construct([color[clr][0] + brightOffset, color[clr][1]]),
+            bgBright: construct([color[clr][0] + bgOffset + brightOffset, color[clr][1] + bgOffset]),
+        }
+    )
 }
 
 /** Colors the string black */
@@ -67,4 +87,5 @@ export type RGBColor = [number, number, number]
 
 /** Colors the string with the given rgb values */
 export const rgb = (str: string, [r, g, b]: RGBColor) => `${ESC}[38;2;${r};${g};${b}m${str}${RESET}`
+/** Colors the string's background with the given rgb values */
 rgb.bg = (str: string, [r, g, b]: RGBColor) => `${ESC}[48;2;${r};${g};${b}m${str}${RESET}`
