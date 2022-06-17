@@ -1,5 +1,5 @@
 //  Library
-import { wrap, code as getCode } from './codes.ts'
+import { construct } from './codes.ts'
 
 /** ANSI Colors are enabled */
 let enabled = !Deno?.noColor ?? true
@@ -36,22 +36,9 @@ export const color = {
 } as const
 
 /** Background offset */
-const bgOffset = 10
+export const bgOffset = 10
 /** Bright offset */
-const brightOffset = 60
-
-/**
- * Construct an ANSIColor object. The object can be called as a function on a string
- * to wrap the ANSI escape codes around it. The object also has `open` and `close` properties
- * that store the opening and closing ANSI escape code respectively.
- */
-function construct(tuple: readonly [number, number]) {
-    const code = getCode(tuple[0], tuple[1])
-    return Object.assign(
-        (str: string) => wrap(str, code, enabled),
-        code
-    )
-}
+export const brightOffset = 60
 
 /**
  * Constructs ANSIColor objects. The objects can be called as a function on a string
@@ -61,11 +48,27 @@ function construct(tuple: readonly [number, number]) {
  */
 export const ansiColor = (clr: ANSIColor) => {
     return Object.assign(
-        construct(color[clr]),
+        construct(
+            color[clr][0],
+            color[clr][1],
+            enabled
+        ),
         {
-            bg: construct([color[clr][0] + bgOffset, color[clr][1] + bgOffset]),
-            bright: construct([color[clr][0] + brightOffset, color[clr][1]]),
-            bgBright: construct([color[clr][0] + bgOffset + brightOffset, color[clr][1] + bgOffset]),
+            bg: construct(
+                color[clr][0] + bgOffset,
+                color[clr][1] + bgOffset,
+                enabled
+            ),
+            bright: construct(
+                color[clr][0] + brightOffset,
+                color[clr][1],
+                enabled
+            ),
+            bgBright: construct(
+                color[clr][0] + bgOffset + brightOffset,
+                color[clr][1] + bgOffset,
+                enabled
+            ),
         }
     )
 }
@@ -92,28 +95,29 @@ export const white = ansiColor('white')
 //  ===
 
 /** Color the string with the 8-bit color palette */
-export const rgb8 = (str: string, color: number) => wrap(
-    str,
-    getCode([38, 5, clamp(color)], 39),
+export const rgb8 = (color: number) => construct(
+    [38, 5, clamp(color)],
+    39,
     enabled
 )
 /** Color the string's background with the 8-bit color palette */
-rgb8.bg = (str: string, color: number) => wrap(
-    str,
-    getCode([48, 5, clamp(color)], 49),
+rgb8.bg = (color: number) => construct(
+    [48, 5, clamp(color)],
+    49,
     enabled
 )
 
 /** Colors the string with the given rgb values */
-export const rgb = (str: string, [r, g, b]: [number, number, number]) => wrap(
-    str,
-    getCode([38, 2, ...clamp([r, g, b])], 39),
+export const rgb = ([r, g, b]: [number, number, number]) => construct(
+    [38, 2, ...clamp([r, g, b])],
+    39,
     enabled
 )
+
 /** Colors the string's background with the given rgb values */
-rgb.bg = (str: string, [r, g, b]: [number, number, number]) => wrap(
-    str,
-    getCode([48, 2, ...clamp([r, g, b])], 49),
+rgb.bg = ([r, g, b]: [number, number, number]) => construct(
+    [48, 2, ...clamp([r, g, b])],
+    49,
     enabled
 )
 

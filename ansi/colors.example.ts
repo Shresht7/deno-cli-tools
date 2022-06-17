@@ -36,13 +36,13 @@ h('RGB ANSI Colors')
 const number = 16
 let rgbStr = ''
 for (let i = 0; i < number; i++) {
-    rgbStr += rgb(` ${i} `, [rand(256), rand(256), rand(256)]) + ' '
+    rgbStr += rgb([rand(256), rand(256), rand(256)])(` ${i} `) + ' '
 }
 console.log(rgbStr)
 
 rgbStr = ''
 for (let i = 0; i < number; i++) {
-    rgbStr += rgb.bg(` ${i} `, [rand(256), rand(256), rand(256)]) + ' '
+    rgbStr += rgb.bg([rand(256), rand(256), rand(256)])(` ${i} `) + ' '
 }
 console.log(rgbStr)
 

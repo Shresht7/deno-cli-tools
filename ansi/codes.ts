@@ -60,6 +60,19 @@ export const wrap = (str: string, code: ANSICode, enabled = true) => enabled
     ? code.open + str.replace(code.regexp.close, code.open) + code.close
     : str
 
-
-/** Reset the given string */
-export const reset = (str: string) => wrap(str, code(0, 0))
+/**
+ * Constructs ANSIColor objects. The objects can be called as a function on a string
+ * to wrap the ANSI escape codes around it. The objects also have `open` and `close`
+ * properties that have the respective ANSI escape codes. The `regexp` property
+ * has the respective RegExp objects.
+ * @param open Opening ANSI escape code
+ * @param close Closing ANSI escape code
+ * @param enabled if false, return the string unaltered
+ */
+export function construct(open: number | number[], close: number, enabled = true) {
+    const ansiCode = code(open, close)
+    return Object.assign(
+        (str: string) => wrap(str, ansiCode, enabled),
+        ansiCode
+    )
+}
