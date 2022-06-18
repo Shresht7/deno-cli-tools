@@ -6,7 +6,7 @@ import { compose } from '../helpers/composition.ts'
 import { RESET as reset } from './codes.ts'
 import { blue, yellow, magenta } from './colors.ts'
 import { inverse, bold, italic, faint } from './styles.ts'
-import { pad } from '../utilities/mod.ts'
+import { pad } from '../format/mod.ts'
 import { h } from '../internal/styles.ts'
 
 h('ANSI Builder')
