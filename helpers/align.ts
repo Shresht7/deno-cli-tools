@@ -1,5 +1,5 @@
 //  Helpers
-import { stringWidth } from '../helpers/mod.ts'
+import stringWidth from '../deps.ts'
 import { pad } from './pad.ts'
 
 export type Alignment = 'left' | 'center' | 'right'
