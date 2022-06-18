@@ -1,5 +1,5 @@
 //  Library
-import { join } from '../deps.ts'
+import { join } from '../dev-deps.ts'
 
 /** Walk the directory */
 export async function walkDir(path: string, callback: (file: string) => void) {

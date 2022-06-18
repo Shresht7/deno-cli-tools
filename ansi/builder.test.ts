@@ -2,7 +2,7 @@
 import { ansi } from './builder.ts'
 
 //  Testing
-import { assertEquals } from '../deps.ts'
+import { assertEquals } from '../dev-deps.ts'
 
 //  Helpers
 import { blue, black, white } from './colors.ts'
