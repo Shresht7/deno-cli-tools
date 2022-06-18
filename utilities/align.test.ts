@@ -2,7 +2,7 @@
 import { align } from './align.ts'
 
 //  Testing
-import { assertEquals } from '../library/asserts.ts'
+import { assertEquals } from '../deps.ts'
 
 Deno.test('align', async (t) => {
 

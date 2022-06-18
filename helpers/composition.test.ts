@@ -2,7 +2,7 @@
 import { compose, pipe } from './composition.ts'
 
 //  Testing
-import { assertEquals } from '../library/asserts.ts'
+import { assertEquals } from '../deps.ts'
 
 //  Functions to use for tests
 const one = (s: string) => `<one>${s}</one>`
