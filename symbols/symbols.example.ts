@@ -1,6 +1,6 @@
 //  Library
 import { symbol, status } from "./mod.ts"
-import { h } from '../helpers/styles.ts'
+import { h, h2 } from '../helpers/styles.ts'
 
 h('Symbols')
 
@@ -22,7 +22,7 @@ for (const [name, s] of Object.entries(status)) {
     console.log(s, name)
 }
 
-h('Examples')
+h2('Examples')
 
 console.log(symbol.twoThirds, symbol.almostEqual, "0.67")   //  ⅔ ≈ 0.67
 console.log(symbol.arrowDown, symbol.arrowUp, symbol.arrowLeft, symbol.arrowRight)  //  ↓ ↑ ← →
