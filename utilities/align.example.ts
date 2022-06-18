@@ -1,4 +1,8 @@
+//  Library
 import { align } from './align.ts'
+import { h } from '../internal/styles.ts'
+
+h('Align')
 
 const text = `
 deno-cli-tools
