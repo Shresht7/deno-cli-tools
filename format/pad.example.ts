@@ -2,7 +2,7 @@
 import { pad } from './pad.ts'
 import { h } from '../internal/styles.ts'
 
-h('Padding')
+h('Pad')
 
 console.log(pad(5)('deno-cli-tools'))
 console.log(pad(5)('deno-cli-tools', '-'))

@@ -6,8 +6,7 @@ h('Align')
 
 const text = `
 deno-cli-tools
-
-deno-cli-tools is a collection of utilities
+is a collection of utilities
 to aid in the development of command-line-interfaces
 `
 
