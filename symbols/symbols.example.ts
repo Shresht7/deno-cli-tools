@@ -1,6 +1,6 @@
 //  Library
 import { symbol, status } from "./mod.ts"
-import { h, h2 } from '../helpers/styles.ts'
+import { h, h2 } from '../internal/styles.ts'
 
 h('Symbols')
 
