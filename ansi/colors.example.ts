@@ -6,9 +6,7 @@ import {
     ansiColor,
     ANSIColor
 } from './colors.ts'
-
-//  Styles
-import { h } from '../helpers/styles.ts'
+import { h } from '../internal/styles.ts'
 
 /* Run this example with:
     deno run ansi/colors.example.ts

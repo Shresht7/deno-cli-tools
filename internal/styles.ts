@@ -1,7 +1,9 @@
+//  Library
 import { bold, inverse, pad } from '../ansi/styles.ts'
 import { white } from '../ansi/colors.ts'
-import { compose } from './composition.ts'
+import { compose } from '../helpers/composition.ts'
 
+/** Heading */
 export const h = (s: string, print = console.log) => print(
     '\n' +
     compose(
@@ -12,6 +14,7 @@ export const h = (s: string, print = console.log) => print(
     '\n'
 )
 
+/** Subheading */
 export const h2 = (s: string, print = console.log) => print(
     '\n' +
     pad.left(4)(

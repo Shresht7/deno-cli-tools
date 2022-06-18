@@ -1,3 +1,4 @@
+//  Library
 import {
     bold,
     faint,
@@ -8,6 +9,9 @@ import {
     hidden,
     strikethrough
 } from './styles.ts'
+import { h } from '../internal/styles.ts'
+
+h('Styles')
 
 console.log(`
     ${bold('Bold')}

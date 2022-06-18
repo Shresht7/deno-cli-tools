@@ -1,8 +1,6 @@
 //  Library
 import { mix } from './mix.ts'
-
-//  Style
-import { h } from '../helpers/styles.ts'
+import { h } from '../internal/styles.ts'
 
 h('Mixing Styles and Colors')
 
