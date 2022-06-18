@@ -2,7 +2,7 @@
 import { white } from '../ansi/colors.ts'
 import { bold, inverse } from '../ansi/styles.ts'
 import { compose } from '../helpers/composition.ts'
-import { pad } from '../helpers/mod.ts'
+import { pad } from '../format/mod.ts'
 
 /** Heading */
 export const h = (s: string, print = console.log) => print(
