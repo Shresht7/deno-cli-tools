@@ -22,6 +22,8 @@ Command-line tools and utilities for Deno 🦕 projects
   - [📐 Components](#-components)
     - [Progress-Bars](#progress-bars)
     - [Spinners](#spinners)
+  - [Symbols](#symbols)
+- [- https://github.com/sindresorhus/log-symbols](#--httpsgithubcomsindresorhuslog-symbols)
 - [📑 License](#-license)
 
 </details>
@@ -196,6 +198,32 @@ const interval = setInterval(() => {
 
 > Inspired by [ora](https://github.com/sindresorhus/ora) and [cli-spinners](https://github.com/sindresorhus/cli-spinners)
 
+### Symbols
+
+Unicode symbols for the terminal.
+
+```
+✔ ℹ ⚠ ✖ ☰ ↑ ↓ ← → ♪ ♫ ■ ● ․ … › ▲ ▴ ▼ ▾ ◂ ▸ ⌂ ♥ ↔ ↕ ≈ ≠ ≤ ≥ ≡ ∞ ෴ ★ ▶ ⬢
+```
+
+> Uses a fallback set of characters on terminals that do not support unicode.
+
+```ts
+import { symbol, status } from 'https://.../symbols/mod.ts'
+
+console.log(symbol.warning + " Are you sure?")  //  ⚠ Are you sure?
+console.log(status.success, "Done") //  ✔ Done
+console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, symbol.arrowRight) // Controls: ↑ ↓ ← →
+```
+
+`status` symbols include some commonly used colored symbols.
+
+> status symbols obey the `no-color` flags.
+
+Inspired by and heavily borrows from the following projects:
+
+- https://github.com/sindresorhus/figures
+- https://github.com/sindresorhus/log-symbols
 ---
 
 ## 📑 License
