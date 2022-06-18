@@ -1,5 +1,5 @@
 //  Helpers
-import { stringWidth } from './stringWidth.ts'
+import { stringWidth } from '../helpers/stringWidth.ts'
 import { pad } from '../ansi/styles.ts'
 
 export type Alignment = 'left' | 'center' | 'right'

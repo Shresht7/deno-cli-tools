@@ -4,7 +4,7 @@ const text = `
 deno-cli-tools
 
 deno-cli-tools is a collection of utilities
-to aid in development of command-line-interfaces
+to aid in the development of command-line-interfaces
 `
 
 console.log(align(text, { align: 'left' }))
