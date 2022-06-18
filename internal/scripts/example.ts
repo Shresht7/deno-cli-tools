@@ -1,5 +1,5 @@
 //  Library
-import { walkDir } from '../internal/walkDir.ts'
+import { walkDir } from '../walkDir.ts'
 
 // Walk the directory and print out all examples
 await walkDir(Deno.cwd(), async (file) => {
