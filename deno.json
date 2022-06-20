@@ -1,5 +1,6 @@
 {
     "tasks": {
-        "examples": "deno run --allow-read .internal/scripts/example.ts"
+        "examples": "deno run --allow-read internal/scripts/example.ts",
+        "reference": "deno run --allow-env --allow-read --allow-write internal/scripts/reference.ts"
     }
 }
