@@ -38,6 +38,8 @@ Command-line tools and utilities for Deno 🦕 projects
 
 ### 🎨 Colors
 
+The colors package allows you to style text with colors.
+
 ```ts
 import { blue, red } from 'https://.../ansi/colors.ts'
 console.log(blue('Whale'))
@@ -63,6 +65,8 @@ console.log(clr('text'))
 ```
 
 ### 💄 Styles
+
+The styles package allows you to format your text.
 
 ```ts
 import { bold, inverse } from 'https://.../ansi/styles.ts'
@@ -101,6 +105,8 @@ console.log(ansi`Yes, ${compose(blue, inverse)} yes it is!`)
 
 ### ☝ Cursor
 
+The cursor package provides helper function for cursor manipulation.
+
 ```ts
 import cursor from 'https://.../ansi/cursor.ts'
 console.log(cursor.toColumn(0))
@@ -125,6 +131,8 @@ console.log(cursor.right(10))
 | `restore(mode = 'DEC')` | Restores the current cursor position         |
 
 ### 🧼 Clear
+
+The clear package provides helper functions to clear the terminal.
 
 ```ts
 import clear from 'https://.../ansi/clear.ts'
