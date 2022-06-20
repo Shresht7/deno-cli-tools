@@ -11,7 +11,6 @@ Command-line tools and utilities for Deno 🦕 projects
 
 <summary>Table of Contents</summary>
 
-- [📖 Usage](#-usage)
 - [📦 ANSI Modules](#-ansi-modules)
   - [🎨 Colors](#-colors)
   - [💄 Styles](#-styles)
@@ -33,14 +32,6 @@ Command-line tools and utilities for Deno 🦕 projects
 
 </details>
 
-## 📖 Usage
-
-```ts
-import { bold, inverse } from 'https://.../ansi/styles.ts'
-import { blue } from 'https://.../ansi/colors.ts'
-console.log(bold(inverse("Hello World!")))
-```
-
 ---
 
 ## 📦 ANSI Modules
@@ -49,25 +40,19 @@ console.log(bold(inverse("Hello World!")))
 
 ```ts
 import { blue, red } from 'https://.../ansi/colors.ts'
+
 console.log(blue('Whale'))
 console.log(red('Skies'))
 ```
 
-|     Color | Signature                                                    |
-| --------: | ------------------------------------------------------------ |
-|   `black` | `(s: string) => string`                                      |
-|     `red` | `(s: string) => string`                                      |
-|   `green` | `(s: string) => string`                                      |
-|  `yellow` | `(s: string) => string`                                      |
-|    `blue` | `(s: string) => string`                                      |
-| `magenta` | `(s: string) => string`                                      |
-|    `cyan` | `(s: string) => string`                                      |
-|   `white` | `(s: string) => string`                                      |
-|     `rgb` | `(s: string, [r, g, b]: [number, number, number]) => string` |
 
 All colors have `bg`, `bright` and `bgBright` variants. e.g. to use bright yellow call `yellow.bright(text)` and to use blue background call `blue.bg(text)`
 
-[Go to Source](ansi/colors.ts)
+<div align='center'>
+  <img src="./screenshots/colors.png" alt="ansi-colors" />
+</div>
+
+colors: `black` | `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `white` | `default`
 
 ### 💄 Styles
 
@@ -77,18 +62,9 @@ console.log(bold('Claims'))
 console.log(inverse('Kinematics'))
 ```
 
-|           Style | Signature               |
-| --------------: | ----------------------- |
-|          `bold` | `(s: string) => string` |
-|         `faint` | `(s: string) => string` |
-|        `italic` | `(s: string) => string` |
-|     `underline` | `(s: string) => string` |
-|      `blinking` | `(s: string) => string` |
-|       `inverse` | `(s: string) => string` |
-|        `hidden` | `(s: string) => string` |
-| `strikethrough` | `(s: string) => string` |
+![ansi-styles](screenshots/styles.png)
 
-[Go to Source](ansi/styles.ts)
+styles: `bold` | `faint` | `italic` | `underline` | `blinking` | `inverse` | `hidden` | `strikethrough`
 
 ### 🏗 ANSI Builder
 
@@ -100,7 +76,7 @@ import { red } from 'https://.../ansi/colors.ts'
 console.log(ansi`This is ${red} dangerous! ${inverse} Are you sure? (Yes/No):`)
 ```
 
-<!-- TODO: Output Screenshot -->
+![ansi-builder](screenshots/builder.png)
 
 Multiple ANSI functions can be composed together using the composition helpers.
 
