@@ -22,7 +22,7 @@ Command-line tools and utilities for Deno 🦕 projects
   - [📐 Components](#-components)
     - [Progress-Bars](#progress-bars)
     - [Spinners](#spinners)
-  - [Symbols](#symbols)
+  - [✔ Symbols](#-symbols)
 - [📑 License](#-license)
 
 </details>
@@ -197,7 +197,7 @@ const interval = setInterval(() => {
 
 > Inspired by [ora](https://github.com/sindresorhus/ora) and [cli-spinners](https://github.com/sindresorhus/cli-spinners)
 
-### Symbols
+### ✔ Symbols
 
 Unicode symbols for the terminal.
 
@@ -225,6 +225,8 @@ console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, sy
 ![status](screenshots/status.png)
 
 > status symbols obey the `no-color` flags.
+
+[Go to Reference](symbols/reference.md)
 
 Inspired by and heavily borrows from the following projects:
 
