@@ -18,8 +18,13 @@ Command-line tools and utilities for Deno 🦕 projects
   - [🏗 ANSI Builder](#-ansi-builder)
   - [☝ Cursor](#-cursor)
   - [🧼 Clear](#-clear)
+  - [RegEx](#regex)
+  - [Mix](#mix)
 - [📚 Helpers](#-helpers)
   - [🏭 Composition](#-composition)
+  - [📄 Format](#-format)
+    - [Align](#align)
+    - [Pad](#pad)
 - [📐 Components](#-components)
   - [Progress-Bars](#progress-bars)
   - [Spinners](#spinners)
@@ -72,17 +77,16 @@ console.log(bold('Claims'))
 console.log(inverse('Kinematics'))
 ```
 
-|           Style | Signature                              |
-| --------------: | -------------------------------------- |
-|          `bold` | `(s: string) => string`                |
-|         `faint` | `(s: string) => string`                |
-|        `italic` | `(s: string) => string`                |
-|     `underline` | `(s: string) => string`                |
-|      `blinking` | `(s: string) => string`                |
-|       `inverse` | `(s: string) => string`                |
-|        `hidden` | `(s: string) => string`                |
-| `strikethrough` | `(s: string) => string`                |
-|           `pad` | `(s: string, n: number = 1) => string` |
+|           Style | Signature               |
+| --------------: | ----------------------- |
+|          `bold` | `(s: string) => string` |
+|         `faint` | `(s: string) => string` |
+|        `italic` | `(s: string) => string` |
+|     `underline` | `(s: string) => string` |
+|      `blinking` | `(s: string) => string` |
+|       `inverse` | `(s: string) => string` |
+|        `hidden` | `(s: string) => string` |
+| `strikethrough` | `(s: string) => string` |
 
 [Go to Source](ansi/styles.ts)
 
@@ -147,12 +151,44 @@ console.log(clear.entireLine)
 | `cursorAndBelow` | Clears the cursor and everything below it |
 | `cursorAndAbove` | Clears the cursor and everything above it |
 |   `entireScreen` | Clear the entire screen                   |
+|     `savedLines` | Clears saved lines                        |
 |           `line` | Clears the line                           |
 | `lineFromCursor` | Clears the line from the cursor           |
 |   `lineToCursor` | Clears the line to the cursor             |
 |     `entireLine` | Clears the entire line                    |
 
 [Go to Source](ansi/clear.ts)
+
+### RegEx
+
+Regular expression to capture ansi codes.
+
+```ts
+import { regex, strip } from 'https://.../ansi/regex.ts'
+
+// ...
+s = str.replace(regex, '')
+// or simply
+s = strip(str)
+```
+
+Based on:
+- ansi-regex: https://github.com/chalk/ansi-regex
+
+[Go to Source](ansi/regex.ts)
+
+### Mix
+
+The `mix` helper function allows you to create composite ansi codes that include style and colors.
+
+```ts
+import { mix } from 'https://.../ansi/mix.ts'
+
+styler = mix('bold', 'white', 'magenta')
+console.log(styler('  Mixology 101  '))
+```
+
+[Go to Source](ansi/mix.ts)
 
 ---
 
@@ -173,6 +209,49 @@ console.log(str)
 const header = compose(bold, inverse, pad(3))
 console.log(header('Reusable Header Style Component'))
 ```
+
+> This is an alternative to the [ansi mix](#mix) helper.
+
+[Go to Source](helpers/composition.ts)
+
+### 📄 Format
+
+#### Align
+
+Align text to the left, right or center.
+
+```ts
+import { align } from 'https://.../format/mod.ts'
+
+//  Align to the right such that the width is 10 characters
+console.log(align('R', { align: 'right', width: 10 }))
+//  alternatively
+console.log(align.right('R', { width: 10 }))
+
+console.log(align('Title\nDescription'))  //  Aligns to the center
+
+  //  Align to the left and use - to pad to the right
+console.log(align.left('L', { pad: '-', width: 5 }))
+```
+
+[Go to Source](format/align.ts)
+
+#### Pad
+
+Apply padding around the text.
+
+```ts
+import { pad } from 'https://.../format/mod.ts'
+
+//  Pad 5 spaces around
+console.log(pad(5)('WOW'))
+//  Pad 1 space to the left
+console.log(pad.left()('Subheading'))
+//  Pad 5 dashes to the right
+console.log(pad.right(5)('MOM'))
+```
+
+[Go to Source](format/pad.ts)
 
 ---
 
