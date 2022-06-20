@@ -11,6 +11,7 @@ export function stringWidth(s: string) {
     s = strip(s)    //  Strip ANSI Codes
 
     //  TODO: Implementation Pending
+    //  ! The implementation is beyond me. May return to it later. (when I actually need it)
 
     //  Calculate string-width
     let width = 0

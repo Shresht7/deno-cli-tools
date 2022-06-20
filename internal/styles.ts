@@ -4,6 +4,8 @@ import { bold, inverse } from '../ansi/styles.ts'
 import { compose } from '../helpers/composition.ts'
 import { pad } from '../format/mod.ts'
 
+//  Internal terminal styles used in the examples
+
 /** Heading */
 export const h = (s: string, print = console.log) => print(
     '\n' +
