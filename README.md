@@ -15,10 +15,11 @@ Command-line tools and utilities for Deno 🦕 projects
 - [📦 ANSI Modules](#-ansi-modules)
   - [🎨 Colors](#-colors)
   - [💄 Styles](#-styles)
-  - [🏭 Composition](#-composition)
   - [🏗 ANSI Builder](#-ansi-builder)
   - [☝ Cursor](#-cursor)
   - [🧼 Clear](#-clear)
+- [📚 Helpers](#-helpers)
+  - [🏭 Composition](#-composition)
 - [📐 Components](#-components)
   - [Progress-Bars](#progress-bars)
   - [Spinners](#spinners)
@@ -84,19 +85,6 @@ console.log(inverse('Kinematics'))
 |           `pad` | `(s: string, n: number = 1) => string` |
 
 [Go to Source](ansi/styles.ts)
-
-### 🏭 Composition
-
-Composition helpers provide two utility functions `compose` and `pipe` that allow you to combine many ansi helper functions together.
-
-```ts
-import { compose } from 'https://.../helpers/composition.ts'
-import { bold, inverse } from 'https://.../ansi/styles.ts'
-import { blue } from 'https://.../ansi/colors.ts'
-
-const str = compose(blue, bold, inverse)('Functional')
-console.log(str)
-```
 
 ### 🏗 ANSI Builder
 
@@ -165,6 +153,26 @@ console.log(clear.entireLine)
 |     `entireLine` | Clears the entire line                    |
 
 [Go to Source](ansi/clear.ts)
+
+---
+
+## 📚 Helpers
+
+### 🏭 Composition
+
+Composition helpers provide two utility functions `compose` and `pipe` that allow you to combine many ansi functions together.
+
+```ts
+import { compose } from 'https://.../helpers/composition.ts'
+import { bold, inverse } from 'https://.../ansi/styles.ts'
+import { blue } from 'https://.../ansi/colors.ts'
+
+const str = compose(blue, bold, inverse)('Functional')
+console.log(str)
+
+const header = compose(bold, inverse, pad(3))
+console.log(header('Reusable Header Style Component'))
+```
 
 ---
 
