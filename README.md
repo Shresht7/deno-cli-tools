@@ -23,7 +23,6 @@ Command-line tools and utilities for Deno 🦕 projects
     - [Progress-Bars](#progress-bars)
     - [Spinners](#spinners)
   - [Symbols](#symbols)
-- [- https://github.com/sindresorhus/log-symbols](#--httpsgithubcomsindresorhuslog-symbols)
 - [📑 License](#-license)
 
 </details>
@@ -211,19 +210,31 @@ Unicode symbols for the terminal.
 ```ts
 import { symbol, status } from 'https://.../symbols/mod.ts'
 
-console.log(symbol.warning + " Are you sure?")  //  ⚠ Are you sure?
-console.log(status.success, "Done") //  ✔ Done
-console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, symbol.arrowRight) // Controls: ↑ ↓ ← →
+console.log(symbol.warning + " Are you sure?")
+//  ⚠ Are you sure?
+
+console.log(status.success, "Done")
+//  ✔ Done
+
+console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, symbol.arrowRight)
+//  Controls: ↑ ↓ ← →
 ```
 
-`status` symbols include some commonly used colored symbols.
+`status` includes some commonly used symbols in color.
+
+![status](screenshots/status.png)
 
 > status symbols obey the `no-color` flags.
 
 Inspired by and heavily borrows from the following projects:
 
-- https://github.com/sindresorhus/figures
-- https://github.com/sindresorhus/log-symbols
+- figures: https://github.com/sindresorhus/figures
+- log-symbols: https://github.com/sindresorhus/log-symbols
+
+Go to Source:
+- [symbols](symbols/symbols.ts)
+- [status](symbols/status.ts)
+
 ---
 
 ## 📑 License
