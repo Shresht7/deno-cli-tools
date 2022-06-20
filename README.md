@@ -40,11 +40,9 @@ Command-line tools and utilities for Deno 🦕 projects
 
 ```ts
 import { blue, red } from 'https://.../ansi/colors.ts'
-
 console.log(blue('Whale'))
 console.log(red('Skies'))
 ```
-
 
 All colors have `bg`, `bright` and `bgBright` variants. e.g. to use bright yellow call `yellow.bright(text)` and to use blue background call `blue.bg(text)`
 
@@ -52,7 +50,17 @@ All colors have `bg`, `bright` and `bgBright` variants. e.g. to use bright yello
   <img src="./screenshots/colors.png" alt="ansi-colors" />
 </div>
 
+<br />
+
 colors: `black` | `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `white` | `default`
+
+The `rgb` function colors a string with the given RGB value.
+
+```ts
+import { rgb } from 'https://.../ansi/colors.ts'
+const clr = rgb([125, 224, 65])
+console.log(clr('text'))
+```
 
 ### 💄 Styles
 
@@ -62,7 +70,11 @@ console.log(bold('Claims'))
 console.log(inverse('Kinematics'))
 ```
 
-![ansi-styles](screenshots/styles.png)
+<div align="center">
+  <img src="screenshots/styles.png" alt="ansi-styles" />
+</div>
+
+<br />
 
 styles: `bold` | `faint` | `italic` | `underline` | `blinking` | `inverse` | `hidden` | `strikethrough`
 
@@ -70,13 +82,13 @@ styles: `bold` | `faint` | `italic` | `underline` | `blinking` | `inverse` | `hi
 
 The ANSI builder API makes use of the power of template string literals to provide a simple and clean way to write ANSI strings. Any ANSI helper function (or any function with `(s: string) => string` signature for that matter) can be passed in the template strings that will be called upon the following string section (and only that section).
 
+![ansi-builder](screenshots/builder.png)
+
 ```ts
 import { ansi } from 'https://.../ansi/builder.ts'
 import { red } from 'https://.../ansi/colors.ts'
 console.log(ansi`This is ${red} dangerous! ${inverse} Are you sure? (Yes/No):`)
 ```
-
-![ansi-builder](screenshots/builder.png)
 
 Multiple ANSI functions can be composed together using the composition helpers.
 
@@ -112,8 +124,6 @@ console.log(cursor.right(10))
 |    `save(mode = 'DEC')` | Saves the current cursor position            |
 | `restore(mode = 'DEC')` | Restores the current cursor position         |
 
-[Go to Source](ansi/cursor.ts)
-
 ### 🧼 Clear
 
 ```ts
@@ -133,11 +143,9 @@ console.log(clear.entireLine)
 |   `lineToCursor` | Clears the line to the cursor             |
 |     `entireLine` | Clears the entire line                    |
 
-[Go to Source](ansi/clear.ts)
-
 ### RegEx
 
-Regular expression to capture ansi codes.
+Regular expression to capture ansi codes. The `strip` helper function can remove all ansi escape codes from a string.
 
 ```ts
 import { regex, strip } from 'https://.../ansi/regex.ts'
@@ -151,8 +159,6 @@ s = strip(str)
 Based on:
 - ansi-regex: https://github.com/chalk/ansi-regex
 
-[Go to Source](ansi/regex.ts)
-
 ### Mix
 
 The `mix` helper function allows you to create composite ansi codes that include style and colors.
@@ -164,7 +170,7 @@ styler = mix('bold', 'white', 'magenta')
 console.log(styler('  Mixology 101  '))
 ```
 
-[Go to Source](ansi/mix.ts)
+![mix](screenshots/mix.png)
 
 ---
 
@@ -188,13 +194,13 @@ console.log(header('Reusable Header Style Component'))
 
 > This is an alternative to the [ansi mix](#mix) helper.
 
-[Go to Source](helpers/composition.ts)
-
 ### 📄 Format
 
 #### Align
 
 Align text to the left, right or center.
+
+![align](screenshots/align.png)
 
 ```ts
 import { align } from 'https://.../format/mod.ts'
@@ -216,6 +222,8 @@ console.log(align.left('L', { pad: '-', width: 5 }))
 
 Apply padding around the text.
 
+![pad](screenshots/pad.png)
+
 ```ts
 import { pad } from 'https://.../format/mod.ts'
 
@@ -226,8 +234,6 @@ console.log(pad.left()('Subheading'))
 //  Pad 5 dashes to the right
 console.log(pad.right(5)('MOM'))
 ```
-
-[Go to Source](format/pad.ts)
 
 ---
 
@@ -266,8 +272,6 @@ Inspired by and heavily borrows from the following projects:
 - ora: https://github.com/sindresorhus/ora
 - cli-spinners: https://github.com/sindresorhus/cli-spinners
 
-[Go to Source](components/spinner/mod.ts)
-
 ---
 
 ## ✔ Symbols
@@ -299,14 +303,12 @@ console.log("Controls: ", symbol.arrowUp, symbol.arrowDown, symbol.arrowLeft, sy
 
 > status symbols obey the `no-color` flags.
 
-[Go to Reference](symbols/reference.md)
+For a list of all symbols, see the [Reference](symbols/reference.md)
 
 Inspired by and heavily borrows from the following projects:
 
 - figures: https://github.com/sindresorhus/figures
 - log-symbols: https://github.com/sindresorhus/log-symbols
-
-[Go to Source](symbols/mod.ts)
 
 ---
 
