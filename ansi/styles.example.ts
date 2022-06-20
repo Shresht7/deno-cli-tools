@@ -22,4 +22,4 @@ console.log(`
     ${inverse('Inverse')}
     ${hidden('Hidden')}
     ${strikethrough('Strikethrough')}
-`)
+`.trim())
