@@ -1,5 +1,5 @@
 //  Library
-import write from '../helpers/write.ts'
+import write from '../internal/write.ts'
 
 type UpdateStringFn = (s: string) => string
 

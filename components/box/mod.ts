@@ -1,7 +1,7 @@
 //  Library
 import boxes from './boxes.json' assert { type: 'json' }
 import { stringWidth } from '../../helpers/stringWidth.ts'
-import { align, Alignment } from '../../helpers/align.ts'
+import { align, Alignment } from '../../format/mod.ts'
 
 //  =====
 //  BOXES
@@ -27,12 +27,18 @@ export function box(contents: string, { title, type = 'classic', alignment = 'ce
     //  Transform lines to fit the box
     arr = arr
         .map(line => align(line || ' ', { align: alignment, width: maxWidth }))
-        .map(line => box.left + line + box.right)
+        .map(line => box.left + ' ' + line + ' ' + box.right)
 
-    //  Add the top and bottom sections
-    title = align(' ' + title + ' ', { align: alignment, pad: box.top, width: maxWidth })
-    arr.unshift(box.topLeft + title + box.topRight)
-    arr.push(box.bottomLeft + box.bottom.repeat(maxWidth) + box.bottomRight)
+    //  Add the top section
+    if (title) {
+        title = align(' ' + title + ' ', { align: alignment, pad: box.top, width: maxWidth })
+        arr.unshift(box.topLeft + box.top + title + box.top + box.topRight)
+    } else {
+        arr.unshift(box.topLeft + box.top + box.top.repeat(maxWidth) + box.top + box.topRight)
+    }
+
+    //  Add the bottom section
+    arr.push(box.bottomLeft + box.bottom + box.bottom.repeat(maxWidth) + box.bottom + box.bottomRight)
 
     //  Concatenate as string
     return arr.join('\n')

@@ -25,6 +25,7 @@ Command-line tools and utilities for Deno 🦕 projects
     - [Align](#align)
     - [Pad](#pad)
 - [📐 Components](#-components)
+  - [Box](#box)
   - [Progress-Bars](#progress-bars)
   - [Spinners](#spinners)
 - [✔ Symbols](#-symbols)
@@ -238,6 +239,13 @@ console.log(pad.right(5)('MOM'))
 ---
 
 ## 📐 Components
+
+### Box
+
+```ts
+import { box } from 'https://.../components/box/mod.ts'
+console.log(box('component', { type: 'round', alignment: 'center' }))
+```
 
 ### Progress-Bars
 
