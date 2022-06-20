@@ -12,7 +12,7 @@ Command-line tools and utilities for Deno 🦕 projects
 <summary>Table of Contents</summary>
 
 - [📖 Usage](#-usage)
-- [📦 Modules](#-modules)
+- [📦 ANSI Modules](#-ansi-modules)
   - [🎨 Colors](#-colors)
   - [💄 Styles](#-styles)
   - [🏭 Composition](#-composition)
@@ -35,7 +35,7 @@ import { blue } from 'https://.../ansi/colors.ts'
 console.log(bold(inverse("Hello World!")))
 ```
 
-## 📦 Modules
+## 📦 ANSI Modules
 
 ### 🎨 Colors
 
@@ -164,6 +164,8 @@ console.log(clear.entireLine)
 
 [Go to Source](ansi/clear.ts)
 
+---
+
 ### 📐 Components
 
 #### Progress-Bars
@@ -195,7 +197,13 @@ const interval = setInterval(() => {
 
 [**Read more**](./components/spinner/README.md)
 
-> Inspired by [ora](https://github.com/sindresorhus/ora) and [cli-spinners](https://github.com/sindresorhus/cli-spinners)
+Inspired by and heavily borrows from:
+- ora: https://github.com/sindresorhus/ora
+- cli-spinners: https://github.com/sindresorhus/cli-spinners
+
+[Go to Source](components/spinner/mod.ts)
+
+---
 
 ### ✔ Symbols
 
@@ -233,9 +241,7 @@ Inspired by and heavily borrows from the following projects:
 - figures: https://github.com/sindresorhus/figures
 - log-symbols: https://github.com/sindresorhus/log-symbols
 
-Go to Source:
-- [symbols](symbols/symbols.ts)
-- [status](symbols/status.ts)
+[Go to Source](symbols/mod.ts)
 
 ---
 
