@@ -19,10 +19,10 @@ Command-line tools and utilities for Deno 🦕 projects
   - [🏗 ANSI Builder](#-ansi-builder)
   - [☝ Cursor](#-cursor)
   - [🧼 Clear](#-clear)
-  - [📐 Components](#-components)
-    - [Progress-Bars](#progress-bars)
-    - [Spinners](#spinners)
-  - [✔ Symbols](#-symbols)
+- [📐 Components](#-components)
+  - [Progress-Bars](#progress-bars)
+  - [Spinners](#spinners)
+- [✔ Symbols](#-symbols)
 - [📑 License](#-license)
 
 </details>
@@ -34,6 +34,8 @@ import { bold, inverse } from 'https://.../ansi/styles.ts'
 import { blue } from 'https://.../ansi/colors.ts'
 console.log(bold(inverse("Hello World!")))
 ```
+
+---
 
 ## 📦 ANSI Modules
 
@@ -166,9 +168,9 @@ console.log(clear.entireLine)
 
 ---
 
-### 📐 Components
+## 📐 Components
 
-#### Progress-Bars
+### Progress-Bars
 
 ```ts
 import ProgressBar from 'https://.../components/progressbar/mod.ts'
@@ -177,7 +179,7 @@ const progressbar = new ProgressBar()
 
 [**Read more**](./components/progressbar/README.md)
 
-#### Spinners
+### Spinners
 
 ```ts
 import Spinner from 'https://.../components/spinners/mod.ts'
@@ -197,7 +199,7 @@ const interval = setInterval(() => {
 
 [**Read more**](./components/spinner/README.md)
 
-Inspired by and heavily borrows from:
+Inspired by and heavily borrows from the following projects:
 - ora: https://github.com/sindresorhus/ora
 - cli-spinners: https://github.com/sindresorhus/cli-spinners
 
@@ -205,7 +207,7 @@ Inspired by and heavily borrows from:
 
 ---
 
-### ✔ Symbols
+## ✔ Symbols
 
 Unicode symbols for the terminal.
 
