@@ -14,31 +14,18 @@ const color = <T extends symbolName>(name: T, fn: (s: string) => string) => fn(s
 /** Status Symbols */
 export const _status = {
 
-    // ℹ
-    info: color('info', blue),
+    info: color('info', blue),              // ℹ
 
-    // ✔
-    tick: color('tick', green),
-    done: color('tick', green),
-    success: color('tick', green),
+    tick: color('tick', green),             // ✔
 
-    // ⚠
-    warn: color('warning', yellow),
-    warning: color('warning', yellow),
+    warn: color('warning', yellow),         // ⚠
 
-    // ✖
-    error: color('cross', red),
-    close: color('cross', red),
-    cancel: color('cross', red),
-    cross: color('cross', red),
+    cross: color('cross', red),             // ✖
 
-    // ▲
-    triangleUp: color('triangleUp', green),
-    increase: color('triangleUp', green),
 
-    // ▼
-    triangleDown: color('triangleDown', red),
-    decrease: color('triangleDown', red),
+    increase: color('triangleUp', green),   // ▲
+
+    decrease: color('triangleDown', red),   // ▼
 
 } as const
 
