@@ -7,7 +7,7 @@ interface FlagProperties {
     defaultValue?: string | boolean
 }
 
-class FlagParser {
+export class FlagParser {
 
     private stringFlags: string[] = []
     private booleanFlags: string[] = []
@@ -51,10 +51,3 @@ class FlagParser {
     })
 
 }
-
-const args = new FlagParser()
-    .flag('text', { aliases: ['t', 'str'], defaultValue: 'YOLO' })
-    .flag('color', { isBoolean: true })
-    .parse()
-
-console.log(args)
