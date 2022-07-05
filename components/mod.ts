@@ -1,5 +1,5 @@
 //  Library
-import write from '../internal/write.ts'
+import { Writer } from '../internal/mod.ts'
 
 type UpdateStringFn = (s: string) => string
 
@@ -14,11 +14,11 @@ class Component {
     private contents = ""
 
     /** Writer to use when writing contents */
-    private writer: Deno.Writer = Deno.stdout
+    private writer: Writer = new Writer(Deno.stdout)
 
     constructor({ contents, writer }: ConstructorProps = {}) {
         this.contents = contents || this.contents
-        this.writer = writer || this.writer
+        this.writer = writer ? new Writer(writer) : this.writer
     }
 
     /** Write the given text to contents */
@@ -35,7 +35,7 @@ class Component {
 
     /** Write the contents to Writer */
     protected render() {
-        write(this.contents, this.writer)
+        this.writer.write(this.contents)
     }
 
 }

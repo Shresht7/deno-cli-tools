@@ -1,6 +1,6 @@
 //  Library
 import { ESC, CSI } from './codes.ts'
-import write from '../internal/write.ts'
+import { write, read } from '../internal/mod.ts'
 
 //  ===================
 //  CURSOR MANIPULATION
@@ -49,17 +49,13 @@ export default cursor
  * Returns the current position of the cursor as a tuple of numbers [row, column]
  * @returns A tuple containing the current row and column of the cursor
  */
-function getPosition(): [number, number] {
-    const response = new Uint8Array(8)
-
+async function getPosition(): Promise<[number, number]> {
     Deno.setRaw(Deno.stdin.rid, true)
     write(cursor.requestPosition)
-    Deno.stdin.readSync(response)
+    const response = await read(8)
     Deno.setRaw(Deno.stdin.rid, false)
 
-    const responseCode = new TextDecoder().decode(response)
-
-    const [_, r, c] = responseCode.match(/\[(\d+);(\d+)R/) ?? ['0', '0', '0']
+    const [_, r, c] = response.match(/\[(\d+);(\d+)R/) ?? ['0', '0', '0']
 
     return [r, c].map(i => {
         console.log(i)
