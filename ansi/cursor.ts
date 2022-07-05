@@ -1,5 +1,6 @@
 //  Library
 import { ESC, CSI } from './codes.ts'
+import write from '../internal/write.ts'
 
 //  ===================
 //  CURSOR MANIPULATION
@@ -25,8 +26,10 @@ const cursor = {
     toPrevLine: (n = 1) => `${CSI}${n}F`,
     /** Moves the cursor to a given column position */
     toColumn: (n = 0) => `${CSI}${n}G`,
-    /** Returns the current cursor position (reports as `ESC[#;#R`) */
+    /** Returns the current cursor position (reports as `[#;#R`) */
     requestPosition: `${CSI}6n`,
+    /** Returns the current cursor position (reports as [r, c]) */
+    getPosition,
     /** Makes the cursor visible */
     show: `${CSI}?25h`,
     /** Makes the cursor invisible */
@@ -41,3 +44,25 @@ const cursor = {
 //  -----------------
 export default cursor
 //  -----------------
+
+/**
+ * Returns the current position of the cursor as a tuple of numbers [row, column]
+ * @returns A tuple containing the current row and column of the cursor
+ */
+function getPosition(): [number, number] {
+    const response = new Uint8Array(8)
+
+    Deno.setRaw(Deno.stdin.rid, true)
+    write(cursor.requestPosition)
+    Deno.stdin.readSync(response)
+    Deno.setRaw(Deno.stdin.rid, false)
+
+    const responseCode = new TextDecoder().decode(response)
+
+    const [_, r, c] = responseCode.match(/\[(\d+);(\d+)R/) ?? ['0', '0', '0']
+
+    return [r, c].map(i => {
+        console.log(i)
+        return parseInt(i)
+    }) as [number, number]
+}
