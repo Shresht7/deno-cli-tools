@@ -1,5 +1,5 @@
 //  Library
-import { OSC, BEL, ESC } from './codes.ts'
+import { OSC, BEL, CSI } from './codes.ts'
 
 //  =============
 //  MISCELLANEOUS
@@ -10,11 +10,11 @@ export const link = (text: string, url: string) => `${OSC}8;;${url}${BEL}${text}
 export const bell = BEL
 
 export const screen = {
-    save: `${ESC}[?47h`,
-    restore: `${ESC}[?47l`
+    save: CSI + '?47h',
+    restore: CSI + '?47l'
 }
 
 export const altBuffer = {
-    enable: `${ESC}[?1049h`,
-    disable: `${ESC}[?1049l`
+    enable: CSI + '?1049h',
+    disable: CSI + '?1049l'
 }

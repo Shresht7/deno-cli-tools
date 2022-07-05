@@ -41,14 +41,16 @@ interface ANSICode {
 }
 
 /** Helper function to format the given ANSI codes */
-export const code = (open: number | number[], close: number): ANSICode => {
-    open = Array.isArray(open) ? open : [open]
+export const code = (start: number | number[], end: number): ANSICode => {
+    start = Array.isArray(start) ? start : [start]
+    const open = CSI + start.join(';') + 'm'
+    const close = CSI + end + 'm'
     return {
-        open: `${ESC}[${open.join(';')}m`,
-        close: `${ESC}[${close}m`,
+        open,
+        close,
         regexp: {
-            open: new RegExp(`${ESC}\\[${open.join(';')}m`),
-            close: new RegExp(`${ESC}\\[${close}m`)
+            open: new RegExp(open),
+            close: new RegExp(close)
         }
     }
 }
