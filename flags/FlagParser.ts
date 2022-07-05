@@ -1,5 +1,5 @@
 //  Library
-import { flags } from '../deps.ts'
+import { flags } from './deps.ts'
 
 interface FlagProperties {
     aliases?: string[]
