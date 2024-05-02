@@ -1,5 +1,5 @@
 import { box } from './mod.ts'
-import boxes from './boxes.json' assert { type: 'json' }
+import boxes from './boxes.json' with { type: 'json' }
 
 console.log(box('Contents that rest on the left side', {
     title: 'Title Left',

@@ -1,5 +1,5 @@
 //  Library
-import boxes from './boxes.json' assert { type: 'json' }
+import boxes from './boxes.json' with { type: 'json' }
 import { stringWidth } from '../../helpers/stringWidth.ts'
 import { align, Alignment } from '../../format/mod.ts'
 

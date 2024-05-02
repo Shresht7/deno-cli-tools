@@ -1,4 +1,4 @@
-import _spinners from './spinners.json' assert { type: 'json' }
+import _spinners from './spinners.json' with { type: 'json' }
 
 export interface SpinnerInterface {
     interval: number
