@@ -50,10 +50,10 @@ export default cursor
  * @returns A tuple containing the current row and column of the cursor
  */
 async function getPosition(): Promise<[number, number]> {
-    Deno.setRaw(Deno.stdin.rid, true)
+    Deno.stdin.setRaw(true)
     write(cursor.requestPosition)
     const response = await read(8)
-    Deno.setRaw(Deno.stdin.rid, false)
+    Deno.stdin.setRaw(false)
 
     const [_, r, c] = response.match(/\[(\d+);(\d+)R/) ?? ['0', '0', '0']
 
