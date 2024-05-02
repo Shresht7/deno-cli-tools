@@ -19,7 +19,6 @@ export const CSI = ESC + '['
 /* Operating System Command */
 export const OSC = ESC + ']'
 
-
 /*  Reset Code */
 export const RESET = CSI + '0m'
 
