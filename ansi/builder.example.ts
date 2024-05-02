@@ -7,14 +7,13 @@ import { RESET as reset } from './codes.ts'
 import { blue, yellow, magenta } from './colors.ts'
 import { inverse, bold, italic, faint } from './styles.ts'
 import { pad } from '../format/mod.ts'
-import { h } from '../internal/styles.ts'
 
-h('ANSI Builder')
-
+// Styles
 const header = compose(bold, blue, inverse, pad(3))
 const highlight = compose(yellow, italic)
 const code = compose(magenta, italic)
 
+// Output
 console.log(
     ansi`
     ${header}# ANSI Template String Builder${reset}
