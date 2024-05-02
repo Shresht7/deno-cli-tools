@@ -31,7 +31,7 @@ export const BEL = '\u0007'
 // ----------
 
 /** Check if the terminal supports ANSI escape codes */
-export let isEnabled = Deno.noColor ?? true
+export let isEnabled = !Deno.noColor ?? true
 
 /** Enable ANSI escape codes */
 export function enableANSICodes() {
