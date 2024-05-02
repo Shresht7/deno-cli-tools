@@ -1,13 +1,6 @@
 //  Library
 import { construct } from './codes.ts'
 
-/** ANSI Colors are enabled */
-let enabled = !Deno?.noColor ?? true
-/** Helper function to enable or disable ANSI Colors */
-export const setColorEnabled = (bool: boolean) => enabled = bool
-/** Helper function to get whether ANSI Colors are enabled or disabled */
-export const getColorEnabled = () => enabled
-
 //  ==========
 //  ANSI COLOR
 //  ==========
@@ -51,23 +44,19 @@ export const ansiColor = (clr: ANSIColor) => {
         construct(
             color[clr][0],
             color[clr][1],
-            enabled
         ),
         {
             bg: construct(
                 color[clr][0] + bgOffset,
                 color[clr][1] + bgOffset,
-                enabled
             ),
             bright: construct(
                 color[clr][0] + brightOffset,
                 color[clr][1],
-                enabled
             ),
             bgBright: construct(
                 color[clr][0] + bgOffset + brightOffset,
                 color[clr][1] + bgOffset,
-                enabled
             ),
         }
     )
@@ -98,27 +87,23 @@ export const white = ansiColor('white')
 export const rgb8 = (color: number) => construct(
     [38, 5, clamp(color)],
     39,
-    enabled
 )
 /** Color the string's background with the 8-bit color palette */
 rgb8.bg = (color: number) => construct(
     [48, 5, clamp(color)],
     49,
-    enabled
 )
 
 /** Colors the string with the given rgb values */
 export const rgb = ([r, g, b]: [number, number, number]) => construct(
     [38, 2, ...clamp([r, g, b])],
     39,
-    enabled
 )
 
 /** Colors the string's background with the given rgb values */
 rgb.bg = ([r, g, b]: [number, number, number]) => construct(
     [48, 2, ...clamp([r, g, b])],
     49,
-    enabled
 )
 
 // -------

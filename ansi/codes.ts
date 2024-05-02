@@ -26,6 +26,23 @@ export const RESET = CSI + '0m'
 export const CTRL = '^['
 export const BEL = '\u0007'
 
+// ----------
+// IS ENABLED
+// ----------
+
+/** Check if the terminal supports ANSI escape codes */
+export let isEnabled = Deno.noColor ?? true
+
+/** Enable ANSI escape codes */
+export function enableANSICodes() {
+    isEnabled = true
+}
+
+/** Disable ANSI escape codes */
+export function disableANSICodes() {
+    isEnabled = false
+}
+
 //  ---------------
 //  HELPER FUNCTION
 //  ---------------
@@ -58,9 +75,8 @@ export const code = (start: number | number[], end: number): ANSICode => {
  * Wrap ANSI Codes around string
  * @param str text to wrap string around
  * @param code ansi code to wrap
- * @param enabled if false, return the string unaltered
  */
-export const wrap = (str: string, code: ANSICode, enabled = true) => enabled
+export const wrap = (str: string, code: ANSICode) => isEnabled
     ? code.open + str.replace(code.regexp.close, code.open) + code.close
     : str
 
@@ -71,12 +87,11 @@ export const wrap = (str: string, code: ANSICode, enabled = true) => enabled
  * has the respective RegExp objects.
  * @param open Opening ANSI escape code
  * @param close Closing ANSI escape code
- * @param enabled if false, return the string unaltered
  */
-export function construct(open: number | number[], close: number, enabled = true) {
+export function construct(open: number | number[], close: number) {
     const ansiCode = code(open, close)
     return Object.assign(
-        (str: string) => wrap(str, ansiCode, enabled),
+        (str: string) => wrap(str, ansiCode),
         ansiCode
     )
 }

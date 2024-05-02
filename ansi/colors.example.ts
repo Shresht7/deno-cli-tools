@@ -2,18 +2,19 @@
 import {
     color,
     rgb,
-    setColorEnabled,
     ansiColor,
     ANSIColor
 } from './colors.ts'
 import { h } from '../internal/styles.ts'
+import { disableANSICodes } from "./codes.ts";
 
-/* Run this example with:
+/* 
+ Run this example with:
     deno run ansi/colors.example.ts
 */
 
 if (Deno.args.includes('--no-color')) {
-    setColorEnabled(false)
+    disableANSICodes()
 }
 
 h('ANSI Colors')
