@@ -1,6 +1,7 @@
 //  Library
 import { symbol, symbolName } from './symbols.ts'
-import { red, blue, green, yellow, getColorEnabled } from '../ansi/colors.ts'
+import { red, blue, green, yellow } from '../ansi/colors.ts'
+import { isEnabled } from '../ansi/codes.ts'
 import { strip } from '../ansi/regex.ts'
 
 /**
@@ -37,7 +38,7 @@ export const _statusWithoutColor = Object.fromEntries(
 ) as typeof _status
 
 /** Helper function to get the correct symbol based on whether colors are enabled */
-const getSymbol = <T extends statusName>(name: T) => (getColorEnabled()
+const getSymbol = <T extends statusName>(name: T) => (isEnabled
     ? _status[name]
     : _statusWithoutColor[name]
 )
