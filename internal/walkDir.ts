@@ -1,5 +1,5 @@
 //  Library
-import { join } from '../dev-deps.ts'
+import { join } from '@std/path'
 
 /** Walk the directory executing the given callback on every file */
 export async function walkDir(path: string, callback: (file: string) => void) {

@@ -1,6 +1,6 @@
 //  Library
 import { pad } from './pad.ts'
-import { assert } from '../dev-deps.ts'
+import { assert } from '@std/assert'
 
 Deno.test('pad', async t => {
 
