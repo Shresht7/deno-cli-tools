@@ -12,15 +12,21 @@ export const link = (text: string, url: string) => `${OSC}8;;${url}${BEL}${text}
 export const bell = BEL
 
 export const screen = {
+
     /** Save the screen */
-    save: CSI + '?47h',
+    save: `${CSI}?47h`,
+
     /** Restore the screen */
-    restore: CSI + '?47l'
-}
+    restore: `${CSI}?47l`
+
+} as const
 
 export const altBuffer = {
+
     /** Enable the alternate buffer */
-    enable: CSI + '?1049h',
+    enable: `${CSI}?1049h`,
+
     /** Disable the alternate buffer */
-    disable: CSI + '?1049l'
-}
+    disable: `${CSI}?1049l`
+
+} as const

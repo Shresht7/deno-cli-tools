@@ -27,20 +27,28 @@ export const style = {
     strikethrough: [9, 29],
 } as const
 
+
 /** Makes the string bold */
 export const bold = construct(...style.bold)
+
 /** Makes the string faint */
 export const faint = construct(...style.faint)
+
 /** Makes the string italic */
 export const italic = construct(...style.italic)
+
 /** Makes the string underlined */
 export const underline = construct(...style.underline)
+
 /** Makes the string blink */
 export const blinking = construct(...style.blinking)
+
 /** Inverts the string's colors */
 export const inverse = construct(...style.inverse)
+
 /** Hides the string */
 export const hidden = construct(...style.hidden)
+
 /** Strikethrough a string */
 export const strikethrough = construct(...style.strikethrough)
 

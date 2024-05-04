@@ -14,33 +14,33 @@ import { CSI } from './codes.ts'
 const clear = {
 
     /** Clears the screen (same as ESC[0J) */
-    screen: CSI + 'J',
+    screen: `${CSI}J`,
 
     /** Clears the cursor and everything below it */
-    cursorAndBelow: CSI + '0J',
+    cursorAndBelow: `${CSI}0J`,
 
     /** Clears the cursor and everything above it */
-    cursorAndAbove: CSI + '1J',
+    cursorAndAbove: `${CSI}1J`,
 
     /** Clears the entire screen  */
-    entireScreen: CSI + '2J',
+    entireScreen: `${CSI}2J`,
 
     /** Erase saved lines */
-    savedLines: CSI + '3J',
+    savedLines: `${CSI}3J`,
 
     /** Clears the line (same as ESC[0K) */
-    line: CSI + 'K',
+    line: `${CSI}K`,
 
     /** Clears the line from the cursor */
-    lineFromCursor: CSI + '0K',
+    lineFromCursor: `${CSI}0K`,
 
     /** Clears the line to the cursor */
-    lineToCursor: CSI + '1K',
+    lineToCursor: `${CSI}1K`,
 
     /** Clears the entire line */
-    entireLine: CSI + '2K',
+    entireLine: `${CSI}2K`,
 
-}
+} as const
 
 //  ----------------
 export default clear

@@ -14,13 +14,13 @@ export enum EscapeCode {
 export const ESC = EscapeCode.Unicode
 
 /* Control Sequence Introducer */
-export const CSI = ESC + '['
+export const CSI = `${ESC}[`
 
 /* Operating System Command */
-export const OSC = ESC + ']'
+export const OSC = `${ESC}]`
 
 /*  Reset Code */
-export const RESET = CSI + '0m'
+export const RESET = `${CSI}0m`
 
 //  Miscellaneous
 export const CTRL = '^['
