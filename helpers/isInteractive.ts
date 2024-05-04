@@ -2,7 +2,7 @@
 export function isInteractive(stream = Deno.stdout) {
     return Boolean(
         stream
-        && Deno.isatty(stream.rid)
+        && Deno.stdin.isTerminal()
         && Deno.env.get('TERM') !== 'dumb'
         && !Deno.env.get('CI')
     )
