@@ -9,27 +9,39 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
-    # authors:
-    #   - github-actions[bot]
+    authors:
+      - github-actions[bot]
 
   categories:
-    - title: 🚧 Breaking Changes 🏗
+    # BREAKING CHANGES
+    # ----------------
+
+    - title: 🚧 Breaking Changes
       labels:
-        # - Semver-Major
+        - major
         - breaking-change
 
-    - title: 🎂 New Features 🚀
+    # FEATURES
+    # --------
+
+    - title: 🚀 Features
       labels:
-        # - Semver-Minor
+        - minor
         - enhancement
         - feature
 
-    - title: 🐛 Bug Fixes 🛠
-      labels:
-        # - Semver-Patch
-        - bug
-        - patch
+    # FIXES
+    # -----
 
-    - title: 🖥 Miscellaneous 📃
+    - title: 🛠 Fixes
+      labels:
+        - patch
+        - bug
+        - fix
+
+    # MISCELLANEOUS
+    # -------------
+
+    - title: 📃 Miscellaneous
       labels:
         - "*"
